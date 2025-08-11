@@ -75,15 +75,15 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   OldBkMode: integer;
 begin
-      Image:= TImage.Create(StatusBar);
-      Image.Left:= StatusBar.Width - 16;
-      Image.Top:= 2;
-      Image.Parent:= StatusBar;
-      Image.OnMouseDown:= CheckNew;
-      Image.Picture.LoadFromFile('drop.bmp');
-      OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
-      Image.Canvas.TextOut(2, 2, '10');
-      SetBkMode(Image.Canvas.Handle, OldBkMode);
+  Image:= TImage.Create(StatusBar);
+  Image.Left:= StatusBar.Width - 16;
+  Image.Top:= 2;
+  Image.Parent:= StatusBar;
+  Image.OnMouseDown:= CheckNew;
+  Image.Picture.LoadFromFile('drop.bmp');
+  OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
+  Image.Canvas.TextOut(2, 2, '10');
+  SetBkMode(Image.Canvas.Handle, OldBkMode);
 {      Label0:= TLabel.Create(StatusBar);
       Label0.Left:= Self.Width - 33;
       Label0.Top:= 2;
@@ -192,8 +192,8 @@ begin
       end;
 
       @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
-//      ShowMessage(FileSearchFunction('E:\A'));
-      FileSearchFunction('D:\')
+      FileSearchFunction('D:\');
+      Memo.Lines.Add('Задано: поиск файлов по маске XXX');
     finally
       L1.Free;
       L.Free;
@@ -221,6 +221,7 @@ begin
       F.List:= L;
       F.ListBox.Count:= L.Count;
       F.Show{Modal};
+      Memo.Lines.Add('Готово: поиск файлов по маске XXX');
     finally
     //  F.Free;
     end;
