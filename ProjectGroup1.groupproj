@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F23663FD-91F0-43B9-B27D-00B4FDB079D3}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="mko.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dll1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dll2.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="mko">
+        <MSBuild Projects="mko.dproj"/>
+    </Target>
+    <Target Name="mko:Clean">
+        <MSBuild Projects="mko.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="mko:Make">
+        <MSBuild Projects="mko.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll1">
+        <MSBuild Projects="dll1.dproj"/>
+    </Target>
+    <Target Name="dll1:Clean">
+        <MSBuild Projects="dll1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll1:Make">
+        <MSBuild Projects="dll1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dll2">
+        <MSBuild Projects="dll2.dproj"/>
+    </Target>
+    <Target Name="dll2:Clean">
+        <MSBuild Projects="dll2.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dll2:Make">
+        <MSBuild Projects="dll2.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="mko;dll1;dll2"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="mko:Clean;dll1:Clean;dll2:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="mko:Make;dll1:Make;dll2:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

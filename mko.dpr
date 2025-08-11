@@ -1,0 +1,16 @@
+program mko;
+
+uses
+  Vcl.Forms,
+  FormMain in 'FormMain.pas' {MainForm},
+  FormSearchResult in 'FormSearchResult.pas' {SearchResultForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMainForm, MainForm);
+  Application.CreateForm(TSearchResultForm, SearchResultForm);
+  Application.Run;
+end.

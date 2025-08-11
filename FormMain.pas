@@ -1,0 +1,194 @@
+unit FormMain;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
+  System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids;
+
+type
+  TStrFunction= function: PWideChar; stdcall;
+  TFileSearchFunction= function(ADir: PWideChar): PWideChar; stdcall;
+type
+  TMainForm = class(TForm)
+    pnlButtons: TPanel;
+    btnClose: TButton;
+    ActionList: TActionList;
+    actClose: TAction;
+    pnlCenter: TPanel;
+    StatusBar: TStatusBar;
+    InfoPanel: TPanel;
+    Memo: TMemo;
+    pnlMain: TPanel;
+    StringGrid: TStringGrid;
+    Label1: TLabel;
+    procedure actCloseExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    hLib1: HMODULE;
+    hLib2: HMODULE;
+
+    InfoFunction1: TStrFunction;
+    InfoFunction2: TStrFunction;
+    FileSearchFunction: TFileSearchFunction;
+    FIsDll1: boolean;
+    FIsDll2: boolean;
+    procedure InitDlls;
+    procedure ShowInfo;
+    procedure SetIsDll1(const Value: boolean);
+    procedure SetIsDll2(const Value: boolean);
+  protected
+    procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
+  public
+    property IsDll1: boolean read FIsDll1 write SetIsDll1;
+    property IsDll2: boolean read FIsDll2 write SetIsDll2;
+  end;
+
+
+var
+  MainForm: TMainForm;
+
+
+implementation
+
+{$R *.dfm}
+uses FormSearchResult;
+
+procedure TMainForm.actCloseExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  StringGrid.Cells[0, 0]:= 'Библиотека';
+  StringGrid.Cells[1, 0]:= 'Функция';
+  StringGrid.Cells[2, 0]:= 'Описание';
+  InitDlls;
+  ShowInfo;
+end;
+
+procedure TMainForm.InitDlls;
+begin
+  hLib1:= LoadLibrary('dll1.dll');
+  if hLib1 <> 0 then
+  begin
+    @InfoFunction1:= GetProcAddress(hLib1, 'GetInfo');
+    IsDll1:= @InfoFunction1 <> nil;
+    if not IsDll1 then
+    begin
+      StatusBar.Panels[0].Text:= 'Ошибка: Не найдена функция GetInfo в dll1.dll';
+      Memo.Lines.Add('Ошибка: Не найдена функция GetInfo в dll1.dll');
+    end;
+  end else
+  begin
+    StatusBar.Panels[0].Text:= 'Ошибка: Не загружена dll1.dll';
+    Memo.Lines.Add('Ошибка: Не загружена dll1.dll');
+  end;
+
+  hLib2:= LoadLibrary('dll2.dll');
+  if hLib2 <> 0 then
+  begin
+    @InfoFunction2:= GetProcAddress(hLib2, 'GetInfo');
+    IsDll2:= @InfoFunction2 <> nil;
+    if not IsDll2 then
+    begin
+      StatusBar.Panels[0].Text:= 'Ошибка: Не найдена функция GetInfo в dll2.dll';
+      Memo.Lines.Add('Ошибка: Не найдена функция GetInfo в dll2.dll');
+    end;
+  end else
+  begin
+    StatusBar.Panels[0].Text:= 'Ошибка: Не загружена dll2.dll';
+    Memo.Lines.Add('Ошибка: Не загружена dll2.dll');
+  end;
+
+end;
+
+procedure TMainForm.SetIsDll1(const Value: boolean);
+begin
+  FIsDll1 := Value;
+end;
+
+procedure TMainForm.SetIsDll2(const Value: boolean);
+begin
+  FIsDll2 := Value;
+end;
+
+procedure TMainForm.ShowInfo;
+var
+  L: TStringList;
+  L1: TStringList;
+  S: string;
+  i: integer;
+begin
+  if IsDll1 then
+  begin
+    L:= TStringList.Create;
+    L1:= TStringList.Create;
+    try
+      L.Delimiter:= ';';
+      L.StrictDelimiter:= true;
+      L.DelimitedText:= InfoFunction1;
+      StringGrid.RowCount:= L.Count + 1;
+      L1.Delimiter:= ',';
+      L1.StrictDelimiter:= true;
+      i:= 1;
+      for S in L do
+      begin
+        L1.DelimitedText:= S;
+        StringGrid.Cells[0, i]:= 'dll1.dll';
+        StringGrid.Cells[1, i]:= L1[0];
+        StringGrid.Cells[2, i]:= L1[1];
+        Inc(i);
+      end;
+
+      L.DelimitedText:= InfoFunction2;
+      StringGrid.RowCount:= StringGrid.RowCount + L.Count;
+      for S in L do
+      begin
+        L1.DelimitedText:= S;
+        StringGrid.Cells[0, i]:= 'dll2.dll';
+        StringGrid.Cells[1, i]:= L1[0];
+        StringGrid.Cells[2, i]:= L1[1];
+        Inc(i);
+      end;
+
+      @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
+//      ShowMessage(FileSearchFunction('E:\A'));
+      FileSearchFunction('C:\')
+    finally
+      L1.Free;
+      L.Free;
+    end;
+  end;
+end;
+
+procedure TMainForm.WMCopyData(var Msg: TWMCopyData);
+var
+  ReceivedStr: string;
+  L: TStringList;
+  F: TSearchResultForm;
+begin
+  if Msg.CopyDataStruct <> nil then
+  begin
+    ReceivedStr := PWideChar(Msg.CopyDataStruct.lpData);
+    L:= TStringList.Create;
+    L.Delimiter:= ',';
+    L.StrictDelimiter:= true;
+    L.DelimitedText:= ReceivedStr;
+    F:= TSearchResultForm.Create(Self);
+    try
+      F.ListBox.ScrollWidth:= 800;
+      F.ListBox.Style:= lbVirtual;
+      F.List:= L;
+      F.ListBox.Count:= L.Count;
+      F.Show{Modal};
+    finally
+    //  F.Free;
+    end;
+
+  end;
+end;
+
+end.
