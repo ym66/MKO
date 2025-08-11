@@ -32,7 +32,6 @@ function GetFiles(ADir: PWideChar): PWideChar; stdcall;
 var
   S: string;
   Res: string;
-  CDS: TCopyDataStruct;
   SearchThread: TSearchThread;
 begin
 {
@@ -61,7 +60,6 @@ end;
 procedure TSearchThread.Execute;
 var
   CopyData: TCopyDataStruct;
-  hTargetWnd: HWND;
   S: string;
   Res: string;
 begin

@@ -26,8 +26,8 @@ type
     Label1: TLabel;
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
-       Label0: TLabel;
        Image: TImage;
     hLib1: HMODULE;
     hLib2: HMODULE;
@@ -41,6 +41,8 @@ type
     procedure ShowInfo;
     procedure SetIsDll1(const Value: boolean);
     procedure SetIsDll2(const Value: boolean);
+
+    procedure CheckNew(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   protected
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
   public
@@ -63,21 +65,30 @@ begin
   Close;
 end;
 
-procedure TMainForm.FormCreate(Sender: TObject);
+procedure TMainForm.CheckNew(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  ShowMessage('Ура!');
+end;
 
+procedure TMainForm.FormCreate(Sender: TObject);
+var
+  OldBkMode: integer;
 begin
       Image:= TImage.Create(StatusBar);
-      Image.Left:= {400} Self.Width - 35;
+      Image.Left:= StatusBar.Width - 16;
       Image.Top:= 2;
       Image.Parent:= StatusBar;
-//      Image.Height:= 25;
-//      Image.Width:= 250;
+      Image.OnMouseDown:= CheckNew;
       Image.Picture.LoadFromFile('drop.bmp');
-      Label0:= TLabel.Create(StatusBar);
-      Label0.Left:= {404}Self.Width - 33;
+      OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
+      Image.Canvas.TextOut(2, 2, '10');
+      SetBkMode(Image.Canvas.Handle, OldBkMode);
+{      Label0:= TLabel.Create(StatusBar);
+      Label0.Left:= Self.Width - 33;
       Label0.Top:= 2;
       Label0.Caption:='2';
-      Label0.Parent:= StatusBar;
+      Label0.Parent:= StatusBar;}
 
   StringGrid.Cells[0, 0]:= 'Библиотека';
   StringGrid.Cells[1, 0]:= 'Функция';
@@ -85,6 +96,14 @@ begin
 
   InitDlls;
   ShowInfo;
+end;
+
+procedure TMainForm.FormResize(Sender: TObject);
+begin
+  Image.Visible:= false;
+  Image.Left:= StatusBar.Width - 16;
+  Image.Top:= 2;
+  Image.Visible:= true;
 end;
 
 procedure TMainForm.InitDlls;

@@ -10,9 +10,9 @@ EditViewName=
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXGRsbDEuZHBy]
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
-CursorX=58
-CursorY=44
-TopLine=47
+CursorX=1
+CursorY=35
+TopLine=50
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,9 +20,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=25
-CursorY=180
-TopLine=153
+CursorX=37
+CursorY=84
+TopLine=71
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -97,4 +97,15 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
+
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5Db250cm9scy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas
+CursorX=1
+CursorY=6319
+TopLine=6298
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas
 

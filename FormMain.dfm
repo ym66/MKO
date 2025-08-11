@@ -12,6 +12,7 @@ object MainForm: TMainForm
   Font.Style = []
   Position = poDesktopCenter
   OnCreate = FormCreate
+  OnResize = FormResize
   TextHeight = 15
   object pnlButtons: TPanel
     Left = 0
@@ -41,12 +42,7 @@ object MainForm: TMainForm
       Panels = <
         item
           Width = 50
-        end
-        item
-          Width = 50
         end>
-      ExplicitLeft = -19
-      ExplicitTop = -11
     end
   end
   object pnlCenter: TPanel
@@ -84,10 +80,11 @@ object MainForm: TMainForm
       object Label1: TLabel
         Left = 6
         Top = 6
-        Width = 74
+        Width = 654
         Height = 15
         Align = alTop
         Caption = #1057#1087#1080#1089#1086#1082' '#1079#1072#1076#1072#1095
+        ExplicitWidth = 74
       end
       object StringGrid: TStringGrid
         Left = 6
