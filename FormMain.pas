@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids;
+  System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.WinXCtrls,
+  System.ImageList, Vcl.ImgList;
 
 type
   TStrFunction= function: PWideChar; stdcall;
@@ -26,6 +27,8 @@ type
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
+       Label0: TLabel;
+       Image: TImage;
     hLib1: HMODULE;
     hLib2: HMODULE;
 
@@ -61,10 +64,25 @@ begin
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
+
 begin
+      Image:= TImage.Create(StatusBar);
+      Image.Left:= 400;
+      Image.Top:= 2;
+      Image.Parent:= StatusBar;
+//      Image.Height:= 25;
+//      Image.Width:= 250;
+      Image.Picture.LoadFromFile('drop.bmp');
+      Label0:= TLabel.Create(StatusBar);
+      Label0.Left:= 404;
+      Label0.Top:= 2;
+      Label0.Caption:='2';
+      Label0.Parent:= StatusBar;
+
   StringGrid.Cells[0, 0]:= 'Библиотека';
   StringGrid.Cells[1, 0]:= 'Функция';
   StringGrid.Cells[2, 0]:= 'Описание';
+
   InitDlls;
   ShowInfo;
 end;
@@ -156,7 +174,7 @@ begin
 
       @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
 //      ShowMessage(FileSearchFunction('E:\A'));
-      FileSearchFunction('C:\')
+      FileSearchFunction('D:\')
     finally
       L1.Free;
       L.Free;

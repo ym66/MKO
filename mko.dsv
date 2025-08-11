@@ -12,7 +12,7 @@ EditViewName=
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=58
 CursorY=44
-TopLine=26
+TopLine=47
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,9 +20,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=1
-CursorY=176
-TopLine=123
+CursorX=25
+CursorY=180
+TopLine=153
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -91,8 +91,8 @@ EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\Sy
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1TZWFyY2hSZXN1bHQucGFz]
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 CursorX=50
-CursorY=49
-TopLine=32
+CursorY=48
+TopLine=8
 LeftCol=1
 Elisions=
 Bookmarks=

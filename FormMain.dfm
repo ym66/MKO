@@ -41,7 +41,12 @@ object MainForm: TMainForm
       Panels = <
         item
           Width = 50
+        end
+        item
+          Width = 50
         end>
+      ExplicitLeft = -19
+      ExplicitTop = -11
     end
   end
   object pnlCenter: TPanel
