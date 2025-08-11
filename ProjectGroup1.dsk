@@ -15,28 +15,28 @@ File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\SOURCE\RTL
 File_13=TSourceModule,'D:\WORK\IFC\IFC\IfcTransform.pas',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=E:\WORK\МКО Системы\MKO\dll1.dproj
-Module1=E:\WORK\МКО Системы\MKO\FormMain.pas
-Module2=E:\WORK\МКО Системы\MKO\dll2.dproj
-Module3=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
+Module0=E:\WORK\МКО Системы\MKO\FormMain.pas
+Module1=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
+Module2=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module3=E:\WORK\МКО Системы\MKO\dll2.dproj
 Count=4
 EditWindowCount=1
-
-[E:\WORK\МКО Системы\MKO\dll1.dproj]
-ModuleType=TBaseProject
 
 [E:\WORK\МКО Системы\MKO\FormMain.pas]
 ModuleType=TSourceModule
 
-[E:\WORK\МКО Системы\MKO\dll2.dproj]
-ModuleType=TBaseProject
-
 [E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
 ModuleType=TSourceModule
 
+[E:\WORK\МКО Системы\MKO\dll1.dproj]
+ModuleType=TBaseProject
+
+[E:\WORK\МКО Системы\MKO\dll2.dproj]
+ModuleType=TBaseProject
+
 [EditWindow0]
 ViewCount=4
-CurrentEditView=E:\WORK\МКО Системы\MKO\dll1.dpr
+CurrentEditView=E:\WORK\МКО Системы\MKO\FormMain.pas
 View0=0
 View1=1
 View2=2
@@ -77,9 +77,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=1
-CursorY=176
-TopLine=123
+CursorX=22
+CursorY=78
+TopLine=44
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -90,7 +90,7 @@ CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 CursorX=50
 CursorY=48
-TopLine=32
+TopLine=8
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -101,7 +101,7 @@ CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=58
 CursorY=44
-TopLine=32
+TopLine=47
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -270,6 +270,11 @@ LRDockWidth=1895
 Dockable=1
 StayOnTop=0
 SplitPos=111
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Name,CustomHint
+ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Font=0,GlassFrame=0,HorzScrollBar=0,Touch=0
 
 [frmDesignPreview]
 PercentageSizes=1

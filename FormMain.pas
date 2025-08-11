@@ -67,14 +67,14 @@ procedure TMainForm.FormCreate(Sender: TObject);
 
 begin
       Image:= TImage.Create(StatusBar);
-      Image.Left:= 400;
+      Image.Left:= {400} Self.Width - 35;
       Image.Top:= 2;
       Image.Parent:= StatusBar;
 //      Image.Height:= 25;
 //      Image.Width:= 250;
       Image.Picture.LoadFromFile('drop.bmp');
       Label0:= TLabel.Create(StatusBar);
-      Label0.Left:= 404;
+      Label0.Left:= {404}Self.Width - 33;
       Label0.Top:= 2;
       Label0.Caption:='2';
       Label0.Parent:= StatusBar;

@@ -15,28 +15,28 @@ File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\SOURCE\RTL
 File_13=TSourceModule,'D:\WORK\IFC\IFC\IfcTransform.pas',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=E:\WORK\МКО Системы\MKO\FormMain.pas
-Module1=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-Module2=E:\WORK\МКО Системы\MKO\dll1.dproj
-Module3=E:\WORK\МКО Системы\MKO\dll2.dproj
+Module0=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module1=E:\WORK\МКО Системы\MKO\FormMain.pas
+Module2=E:\WORK\МКО Системы\MKO\dll2.dproj
+Module3=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 Count=4
 EditWindowCount=1
-
-[E:\WORK\МКО Системы\MKO\FormMain.pas]
-ModuleType=TSourceModule
-
-[E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
-ModuleType=TSourceModule
 
 [E:\WORK\МКО Системы\MKO\dll1.dproj]
 ModuleType=TBaseProject
 
+[E:\WORK\МКО Системы\MKO\FormMain.pas]
+ModuleType=TSourceModule
+
 [E:\WORK\МКО Системы\MKO\dll2.dproj]
 ModuleType=TBaseProject
 
+[E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
+ModuleType=TSourceModule
+
 [EditWindow0]
 ViewCount=4
-CurrentEditView=E:\WORK\МКО Системы\MKO\FormMain.pas
+CurrentEditView=E:\WORK\МКО Системы\MKO\dll1.dpr
 View0=0
 View1=1
 View2=2
@@ -79,7 +79,7 @@ CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
 CursorX=1
 CursorY=176
-TopLine=159
+TopLine=123
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -89,7 +89,7 @@ EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 CursorX=50
-CursorY=49
+CursorY=48
 TopLine=32
 LeftCol=1
 Elisions=
@@ -99,9 +99,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 [View2]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
-CursorX=43
-CursorY=71
-TopLine=44
+CursorX=58
+CursorY=44
+TopLine=32
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -178,8 +178,8 @@ Create=1
 Visible=1
 Docked=0
 State=2
-Left=801
-Top=1451
+Left=145
+Top=273
 Width=8930
 Height=8520
 MaxLeft=-4
@@ -270,11 +270,6 @@ LRDockWidth=1895
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=ModalResult,Action
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,BevelEdges=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,ImageMargins=0,CustomTitleBar=0,GlassFrame=0,HorzScrollBar=0,Padding=0,StyleElements=0,Touch=0,VertScrollBar=0
 
 [frmDesignPreview]
 PercentageSizes=1

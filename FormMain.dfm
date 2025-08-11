@@ -84,11 +84,10 @@ object MainForm: TMainForm
       object Label1: TLabel
         Left = 6
         Top = 6
-        Width = 654
+        Width = 74
         Height = 15
         Align = alTop
         Caption = #1057#1087#1080#1089#1086#1082' '#1079#1072#1076#1072#1095
-        ExplicitWidth = 74
       end
       object StringGrid: TStringGrid
         Left = 6
