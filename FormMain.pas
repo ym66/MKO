@@ -11,6 +11,10 @@ uses
 type
   TStrFunction= function: PWideChar; stdcall;
   TFileSearchFunction= function(ADir: PWideChar): PWideChar; stdcall;
+//  TSearchCharsFunction= function(ASequence: PAnsiChar; AFile: PWideChar):PAnsiChar;  stdcall;
+  TSearchCharsFunction= function(const FileName: PChar; const Pattern: Pointer;
+                                 const PatternLen: Integer; {0- строка, >0- байты}
+                                 var PositionsStr: PChar): boolean; stdcall;
 type
   TMainForm = class(TForm)
     pnlButtons: TPanel;
@@ -35,6 +39,7 @@ type
     InfoFunction1: TStrFunction;
     InfoFunction2: TStrFunction;
     FileSearchFunction: TFileSearchFunction;
+    SearchCharsFunction: TSearchCharsFunction;
     FIsDll1: boolean;
     FIsDll2: boolean;
     procedure InitDlls;
@@ -75,6 +80,7 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   OldBkMode: integer;
 begin
+  StatusBar.DoubleBuffered:= true;
   Image:= TImage.Create(StatusBar);
   Image.Left:= StatusBar.Width - 16;
   Image.Top:= 2;
@@ -84,11 +90,6 @@ begin
   OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
   Image.Canvas.TextOut(2, 2, '10');
   SetBkMode(Image.Canvas.Handle, OldBkMode);
-{      Label0:= TLabel.Create(StatusBar);
-      Label0.Left:= Self.Width - 33;
-      Label0.Top:= 2;
-      Label0.Caption:='2';
-      Label0.Parent:= StatusBar;}
 
   StringGrid.Cells[0, 0]:= 'Библиотека';
   StringGrid.Cells[1, 0]:= 'Функция';
@@ -100,10 +101,8 @@ end;
 
 procedure TMainForm.FormResize(Sender: TObject);
 begin
-  Image.Visible:= false;
   Image.Left:= StatusBar.Width - 16;
   Image.Top:= 2;
-  Image.Visible:= true;
 end;
 
 procedure TMainForm.InitDlls;
@@ -158,6 +157,7 @@ var
   L1: TStringList;
   S: string;
   i: integer;
+  PosStr: PChar;
 begin
   if IsDll1 then
   begin
@@ -194,6 +194,22 @@ begin
       @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
       FileSearchFunction('D:\');
       Memo.Lines.Add('Задано: поиск файлов по маске XXX');
+
+      @SearchCharsFunction:= GetProcAddress(hLib1, 'SearchCharsSequence');
+
+      if SearchCharsFunction('a.bin', PAnsiChar('12'), 0, PosStr) then
+      begin
+        if PosStr<> nil then
+        begin
+          S:= PosStr;
+//          ShowMessage('Найдено: ' + PosStr);
+          StrDispose(PosStr);
+          L1.DelimitedText:= S;
+          ShowMessage(L1[1]);
+        end;
+      end;
+
+      //ShowMessage(S);
     finally
       L1.Free;
       L.Free;

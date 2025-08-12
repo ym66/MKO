@@ -12,6 +12,10 @@ const
 
 
 type
+
+  TBuffer =  array[0..1024 * 1024] of byte;
+  PBuffer = ^TBuffer;
+
   TSearchThread = class(TThread)
   private
     Options: word;
@@ -43,9 +47,137 @@ begin
   SearchThread:= TSearchThread.Create(false, ADir, '*.pas', 0);
 end;
 
+{
+function SearchCharsSequence(ASequence: PAnsiChar; AFile: PWideChar): PAnsiChar; stdcall;
+var
+  FS: TFileStream;
+  Buffer: PBuffer;
+  N: integer;
+  PS: integer;
+  M: integer;
+  S: string;
+  SB: string; // плавающий буфер
+  SequenceLen: integer;
+begin
+  Result:= '';
+  SequenceLen:= Length(ASequence);
+  GetMem(Buffer, 1024 * 1024);
+  FS:= TFileStream.Create(AFile, fmOpenRead or fmShareDenyNone);
+  try
+    repeat
+      N:= FS.Read(Buffer^, 1024 * 1024);
+      S:= PAnsiChar(AnsiString(Buffer));
+      PS:= Pos(ASequence, S);
+      M:= PS;
+      if PS <> 0 then
+        if Result = '' then S:= IntToStr(M) else S:= Result + ',' + IntToStr(M);
+      Result:= PAnsiChar(AnsiString(S));
+      while PS <> 0 do
+      begin
+        SB:= PAnsiChar(AnsiString(Buffer));
+        SB:= Copy(SB, M + SequenceLen, Length(SB));
+        PS:= Pos(ASequence, SB);
+        M:= M + PS + 1;
+        if PS <> 0 then
+        begin
+          S:= Result + ',' + IntToStr(M);
+          Result:= PAnsiChar(AnsiString(S));
+        end;
+      end;
+    until  N = 0;
+  finally
+    FS.Free;
+    FreeMem(Buffer);
+  end;
+end;
+}
+{
+function SearchCharsSequence(ASequence: PAnsiChar; AFile: PWideChar): PAnsiChar; stdcall;
+begin
+  Result:= 'не готово';
+end;
+}
+
+function SearchCharsSequence(const FileName: PChar; const Pattern: Pointer;
+                             const PatternLen: Integer; {0- строка, >0- байты}
+                             var PositionsStr: PChar): Boolean; stdcall;
+const
+  BUF_SIZE = 65536; // 64 KB
+var
+  FS: TFileStream;
+  Buffer: array of Byte;
+  ReadBytes, i, Overlap: Integer;
+  GlobalOffset: Int64;
+  TempStr: string;
+  SearchData: TBytes;
+  ActualLen: Integer;
+begin
+  Result := False;
+  PositionsStr := nil;
+  TempStr := '';
+
+  if (FileName = nil) or (Pattern = nil) then Exit;
+  if not FileExists(FileName) then Exit;
+
+  // ќпредел€ем длину шаблона
+  if PatternLen = 0 then
+    ActualLen := StrLen(PAnsiChar(Pattern)) // строка
+  else
+    ActualLen := PatternLen;               // бинарные данные
+
+  if ActualLen <= 0 then Exit;
+
+  // «аписываем шаблон в массив байтов
+  SetLength(SearchData, ActualLen);
+  Move(Pattern^, SearchData[0], ActualLen);
+
+  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone{fmShareDenyWrite});
+  try
+    SetLength(Buffer, BUF_SIZE + ActualLen - 1);
+    GlobalOffset := 0;
+
+    while FS.Position < FS.Size do
+    begin
+      ReadBytes := FS.Read(Buffer[0], BUF_SIZE);
+
+      // ѕерекрытие на границах
+      if (FS.Position < FS.Size) and (ActualLen > 1) then
+      begin
+        Overlap := ActualLen - 1;
+        FS.Read(Buffer[ReadBytes], Overlap);
+        FS.Position := FS.Position - Overlap;
+        Inc(ReadBytes, Overlap);
+      end;
+
+      for i := 0 to ReadBytes - ActualLen do
+      begin
+        if CompareMem(@Buffer[i], @SearchData[0], ActualLen) then
+        begin
+          if TempStr <> '' then TempStr := TempStr + ',';
+          TempStr := TempStr + IntToStr(GlobalOffset + i);
+        end;
+      end;
+
+      Inc(GlobalOffset, ReadBytes - (ActualLen - 1));
+    end;
+
+    if TempStr <> '' then
+    begin
+      PositionsStr := StrAlloc(Length(TempStr) + 1);
+      StrPCopy(PositionsStr, TempStr);
+    end;
+
+    Result := True;
+  finally
+    FS.Free;
+  end;
+end;
+
+
 exports
   GetInfo,
-  GetFiles;
+  GetFiles,
+  SearchCharsSequence;
 
 { TSearchThread }
 
