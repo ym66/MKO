@@ -29,7 +29,7 @@ object SearchResultForm: TSearchResultForm
       OnClick = btnOkClick
     end
   end
-  object Panel1: TPanel
+  object pnlTop: TPanel
     Left = 0
     Top = 0
     Width = 361
@@ -37,10 +37,6 @@ object SearchResultForm: TSearchResultForm
     Align = alClient
     BorderWidth = 10
     TabOrder = 1
-    ExplicitLeft = 160
-    ExplicitTop = 216
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     object ListBox: TListBox
       Left = 11
       Top = 11

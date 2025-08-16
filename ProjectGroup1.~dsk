@@ -1,26 +1,30 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas',0,1,7802,1,7823,0,0,,
-File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas',0,1,25286,1,25303,0,0,,
-File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Messages.pas',0,1,610,24,631,0,0,,
-File_3=TSourceModule,'E:\WORK\МКО Системы\MKO\dll1.dll',0,1,1,1,1,0,0,,
-File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas',0,1,1981,26,2002,0,0,,
-File_5=TSourceModule,'E:\WORK\IFC01\FormProgress.pas',0,1,1,1,1,0,0,,
-File_6=TSourceModule,'E:\WORK\IFC01\FormMain.pas',0,1,1,1,1,0,0,,
-File_7=TSourceModule,'D:\WORK\IFC\IFC\IfcParser.pas',0,1,1984,10,2015,0,0,,{1
-File_8=TSourceModule,'D:\WORK\IFC\IFC\FormMain.pas',0,1,391,77,422,0,0,,{1
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\source\rtl\common\System.Generics.Collections.pas',0,1,7228,1,7250,0,0,,
-File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,30868,1,30890,0,0,,
-File_11=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\source\rtl\common\System.Generics.Defaults.pas',0,1,21,1,42,0,0,,
-File_12=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\SOURCE\RTL\SYS\System.pas',0,1,31973,1,31995,0,0,,
-File_13=TSourceModule,'D:\WORK\IFC\IFC\IfcTransform.pas',0,1,1,1,1,0,0,,
+File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas',0,1,9837,1,9858,0,0,,
+File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Masks.pas',0,1,293,1,315,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,11913,1,11881,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\GETMEM.INC',0,1,2124,1,2145,0,0,,
+File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas',0,1,15064,1,15086,0,0,,
+File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas',0,1,40830,1,40852,0,0,,
+File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas',0,1,6298,1,6319,0,0,,
+File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Messages.pas',0,1,610,24,631,0,0,,
+File_8=TSourceModule,'E:\WORK\МКО Системы\MKO\dll1.dll',0,1,1,1,1,0,0,,
+File_9=TSourceModule,'E:\WORK\IFC01\FormProgress.pas',0,1,1,1,1,0,0,,
+File_10=TSourceModule,'E:\WORK\IFC01\FormMain.pas',0,1,1,1,1,0,0,,
+File_11=TSourceModule,'D:\WORK\IFC\IFC\IfcParser.pas',0,1,1984,10,2015,0,0,,{1
+File_12=TSourceModule,'D:\WORK\IFC\IFC\FormMain.pas',0,1,391,77,422,0,0,,{1
+File_13=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\source\rtl\common\System.Generics.Collections.pas',0,1,7228,1,7250,0,0,,
+File_14=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,30868,1,30890,0,0,,
 
 [Modules]
-Module0=E:\WORK\МКО Системы\MKO\FormMain.pas
-Module1=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-Module2=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module0=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module1=E:\WORK\МКО Системы\MKO\FormMain.pas
+Module2=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 Module3=E:\WORK\МКО Системы\MKO\dll2.dproj
 Count=4
 EditWindowCount=1
+
+[E:\WORK\МКО Системы\MKO\dll1.dproj]
+ModuleType=TBaseProject
 
 [E:\WORK\МКО Системы\MKO\FormMain.pas]
 ModuleType=TSourceModule
@@ -28,15 +32,12 @@ ModuleType=TSourceModule
 [E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
 ModuleType=TSourceModule
 
-[E:\WORK\МКО Системы\MKO\dll1.dproj]
-ModuleType=TBaseProject
-
 [E:\WORK\МКО Системы\MKO\dll2.dproj]
 ModuleType=TBaseProject
 
 [EditWindow0]
 ViewCount=4
-CurrentEditView=E:\WORK\МКО Системы\MKO\FormMain.pas
+CurrentEditView=E:\WORK\МКО Системы\MKO\dll1.dpr
 View0=0
 View1=1
 View2=2
@@ -77,9 +78,9 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=22
-CursorY=78
-TopLine=44
+CursorX=68
+CursorY=317
+TopLine=294
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -88,9 +89,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 [View1]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-CursorX=50
+CursorX=5
 CursorY=48
-TopLine=8
+TopLine=4
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -99,9 +100,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 [View2]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
-CursorX=58
-CursorY=44
-TopLine=47
+CursorX=15
+CursorY=181
+TopLine=150
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -110,8 +111,8 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 [View3]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll2.dpr
-CursorX=24
-CursorY=8
+CursorX=1
+CursorY=13
 TopLine=1
 LeftCol=1
 Elisions=
@@ -119,7 +120,8 @@ Bookmarks=
 EditViewName=E:\WORK\МКО Системы\MKO\dll2.dpr
 
 [Watches]
-Count=0
+Count=1
+Watch0='Buffer^',256,0,18,1,0,'Watches',1
 
 [WatchWindow]
 WatchColumnWidth=120
@@ -273,8 +275,8 @@ SplitPos=111
 
 [PropInspDesignerSelection]
 ArrangeBy=Name
-SelectedItem=Name,CustomHint
-ExpandedItems=Anchors=0,BorderIcons=0,Constraints=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,Font=0,GlassFrame=0,HorzScrollBar=0,Touch=0
+SelectedItem=Name,OnClick
+ExpandedItems=Anchors=1,Constraints=0,Font=0,LiveBindings=0,"LiveBindings Designer=0",Margins=0,BevelEdges=0,StyleElements=0,Touch=0,Padding=0,EditLabel=1,EditLabel.Font=0,EditLabel.LiveBindings=0,"EditLabel.LiveBindings Designer=0",EditLabel.Margins=0,BorderIcons=0,CustomTitleBar=0,GlassFrame=0,HorzScrollBar=0,VertScrollBar=0,Action=0,DirList=0,ImageMargins=0
 
 [frmDesignPreview]
 PercentageSizes=1

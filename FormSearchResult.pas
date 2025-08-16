@@ -10,7 +10,7 @@ type
   TSearchResultForm = class(TForm)
     pnlBottom: TPanel;
     btnOk: TButton;
-    Panel1: TPanel;
+    pnlTop: TPanel;
     ListBox: TListBox;
     procedure ListBoxData(Control: TWinControl; Index: Integer; var Data: string);
     procedure btnOkClick(Sender: TObject);

@@ -4,13 +4,10 @@ uses
   System.SysUtils,
   System.Classes,
   System.IOUtils,
+  System.Masks,
   Winapi.Messages;
 
 {$R *.res}
-const
-  WM_READY = WM_USER + 1;
-
-
 type
 
   TBuffer =  array[0..1024 * 1024] of byte;
@@ -32,72 +29,35 @@ begin
   Result:= 'GetFiles,Поиск  списка  файлов  по  маске;SearchCharsSequence,Поиск вхождений последовательности символов в файле';
 end;
 
-function GetFiles(ADir: PWideChar): PWideChar; stdcall;
+function GetFiles(ADir, AMask: PWideChar): PWideChar; stdcall;
 var
   S: string;
   Res: string;
   SearchThread: TSearchThread;
+  Dir: string;
+  Mask: string;
+  L: TStringList;
 begin
-{
-  Res:= '';
-  for S in TDirectory.GetFiles(ADir, '*', TSearchOption.soAllDirectories) do
-     if Res= '' then Res:= S else Res:= Res + ',' + S;
-  Result:= PWideChar(Res);
-}
-  SearchThread:= TSearchThread.Create(false, ADir, '*.pas', 0);
-end;
-
-{
-function SearchCharsSequence(ASequence: PAnsiChar; AFile: PWideChar): PAnsiChar; stdcall;
-var
-  FS: TFileStream;
-  Buffer: PBuffer;
-  N: integer;
-  PS: integer;
-  M: integer;
-  S: string;
-  SB: string; // плавающий буфер
-  SequenceLen: integer;
-begin
-  Result:= '';
-  SequenceLen:= Length(ASequence);
-  GetMem(Buffer, 1024 * 1024);
-  FS:= TFileStream.Create(AFile, fmOpenRead or fmShareDenyNone);
+  L:= TStringList.Create;
   try
-    repeat
-      N:= FS.Read(Buffer^, 1024 * 1024);
-      S:= PAnsiChar(AnsiString(Buffer));
-      PS:= Pos(ASequence, S);
-      M:= PS;
-      if PS <> 0 then
-        if Result = '' then S:= IntToStr(M) else S:= Result + ',' + IntToStr(M);
-      Result:= PAnsiChar(AnsiString(S));
-      while PS <> 0 do
-      begin
-        SB:= PAnsiChar(AnsiString(Buffer));
-        SB:= Copy(SB, M + SequenceLen, Length(SB));
-        PS:= Pos(ASequence, SB);
-        M:= M + PS + 1;
-        if PS <> 0 then
-        begin
-          S:= Result + ',' + IntToStr(M);
-          Result:= PAnsiChar(AnsiString(S));
-        end;
-      end;
-    until  N = 0;
-  finally
-    FS.Free;
-    FreeMem(Buffer);
-  end;
-end;
-}
-{
-function SearchCharsSequence(ASequence: PAnsiChar; AFile: PWideChar): PAnsiChar; stdcall;
-begin
-  Result:= 'не готово';
-end;
-}
+    L.Delimiter:= ',';
+    L.StrictDelimiter:= true;
+    L.DelimitedText:= Mask;
 
+    try
+      Dir:= ADir;
+      Mask:= AMask;
+    except
+
+    end;
+  finally
+    L.Free;
+  end;
+  SearchThread:= TSearchThread.Create(false, Dir, Mask, 0);
+  Result:= '';
+end;
+
+// Поиск подстроки в файле
 function SearchCharsSequence(const FileName: PChar; const Pattern: Pointer;
                              const PatternLen: Integer; {0- строка, >0- байты}
                              var PositionsStr: PChar): Boolean; stdcall;
@@ -194,14 +154,37 @@ var
   CopyData: TCopyDataStruct;
   S: string;
   Res: string;
+  L: TStringList;
 begin
   inherited;
   Res:= '';
   try
-    for S in TDirectory.GetFiles(Dir, Mask, TSearchOption.soAllDirectories) do
-       if Res= '' then Res:= S else Res:= Res + ',' + S;
+    L:= TStringList.Create;
+    L.Delimiter:= ',';
+    L.StrictDelimiter:= true;
+    L.DelimitedText:= Mask;
+
+    try
+      for S in TDirectory.GetFiles(Dir, '*.*', TSearchOption.soAllDirectories,
+                                   function(const Path: string; const SearchRec: TSearchRec): boolean
+                                   var msk: string;
+                                   begin
+                                     Result:= true;
+                                     for msk in L do
+                                     begin
+                                       if MatchesMask(ExtractFileName(SearchRec.Name), msk) then exit;
+                                     end;
+                                     Result:= false;
+                                   end)
+        do
+        begin
+          if Res= '' then Res:= S else Res:= Res + ',' + S;
+        end;
+    finally
+      L.Free;
+    end;
   except
-    Res:= 'Ошибка';
+    Res:= 'Ошибка.';
   end;
 
   CopyData.dwData := 0; // Можно использовать для обозначения типа данных

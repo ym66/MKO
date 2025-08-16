@@ -6,12 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   System.Actions, Vcl.ActnList, Vcl.ComCtrls, Vcl.Grids, Vcl.WinXCtrls,
-  System.ImageList, Vcl.ImgList;
+  System.ImageList, Vcl.ImgList, Vcl.Mask, Vcl.FileCtrl, Vcl.Outline,
+  Vcl.Samples.DirOutln;
 
 type
   TStrFunction= function: PWideChar; stdcall;
-  TFileSearchFunction= function(ADir: PWideChar): PWideChar; stdcall;
-//  TSearchCharsFunction= function(ASequence: PAnsiChar; AFile: PWideChar):PAnsiChar;  stdcall;
+  TFileSearchFunction= function(ADir, AMask: PWideChar): PWideChar; stdcall;
   TSearchCharsFunction= function(const FileName: PChar; const Pattern: Pointer;
                                  const PatternLen: Integer; {0- строка, >0- байты}
                                  var PositionsStr: PChar): boolean; stdcall;
@@ -28,9 +28,37 @@ type
     pnlMain: TPanel;
     StringGrid: TStringGrid;
     Label1: TLabel;
+    pnlFileSearch: TPanel;
+    PageControl: TPageControl;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
+    pnlMaskSearch: TPanel;
+    lblSearchMask: TLabel;
+    edMask: TEdit;
+    btnMaskSearch: TButton;
+    actMaskSearch: TAction;
+    DirectoryListBox: TDirectoryListBox;
+    DriveComboBox: TDriveComboBox;
+    Label2: TLabel;
+    lblMask: TLabel;
+    lblSelected: TLabel;
+    pnlSubstring: TPanel;
+    FileOpenDialog: TFileOpenDialog;
+    rgSearchSubstring: TRadioGroup;
+    Label3: TLabel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    edSubstring: TEdit;
+    lblSubsttring: TLabel;
+    lblBytes: TLabel;
+    btnSearchSubstring: TButton;
+    actSearchSubstring: TAction;
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure DirectoryListBoxChange(Sender: TObject);
+    procedure actMaskSearchExecute(Sender: TObject);
+    procedure StringGridClick(Sender: TObject);
   private
        Image: TImage;
     hLib1: HMODULE;
@@ -42,17 +70,21 @@ type
     SearchCharsFunction: TSearchCharsFunction;
     FIsDll1: boolean;
     FIsDll2: boolean;
+    FMaskSearchDir: string;
     procedure InitDlls;
     procedure ShowInfo;
     procedure SetIsDll1(const Value: boolean);
     procedure SetIsDll2(const Value: boolean);
 
     procedure CheckNew(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure ShowNew(ANumber: integer);
+    procedure SetMaskSearchDir(const Value: string);
   protected
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
   public
     property IsDll1: boolean read FIsDll1 write SetIsDll1;
     property IsDll2: boolean read FIsDll2 write SetIsDll2;
+    property MaskSearchDir: string read FMaskSearchDir write SetMaskSearchDir;
   end;
 
 
@@ -70,15 +102,28 @@ begin
   Close;
 end;
 
+procedure TMainForm.actMaskSearchExecute(Sender: TObject);
+begin
+   FileSearchFunction(PWideChar(MaskSearchDir), PWideChar(edMask.Text));
+   Memo.Lines.Add('Задано: поиск файлов по маске ' + edMask.Text);
+end;
+
 procedure TMainForm.CheckNew(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   ShowMessage('Ура!');
 end;
 
+procedure TMainForm.DirectoryListBoxChange(Sender: TObject);
+begin
+  MaskSearchDir:= DirectoryListBox.Directory;
+  lblSelected.Caption:= MaskSearchDir;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   OldBkMode: integer;
+  Page: integer;
 begin
   StatusBar.DoubleBuffered:= true;
   Image:= TImage.Create(StatusBar);
@@ -86,7 +131,7 @@ begin
   Image.Top:= 2;
   Image.Parent:= StatusBar;
   Image.OnMouseDown:= CheckNew;
-  Image.Picture.LoadFromFile('drop.bmp');
+  Image.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'drop.bmp');
   OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
   Image.Canvas.TextOut(2, 2, '10');
   SetBkMode(Image.Canvas.Handle, OldBkMode);
@@ -94,6 +139,14 @@ begin
   StringGrid.Cells[0, 0]:= 'Библиотека';
   StringGrid.Cells[1, 0]:= 'Функция';
   StringGrid.Cells[2, 0]:= 'Описание';
+
+  for Page:= 0 to PageControl.PageCount - 1 do
+  begin
+    PageControl.Pages[Page].TabVisible := false;
+  end;
+  PageControl.ActivePage:= TabSheet1;
+
+  DirectoryListBoxChange(Self);
 
   InitDlls;
   ShowInfo;
@@ -151,6 +204,11 @@ begin
   FIsDll2 := Value;
 end;
 
+procedure TMainForm.SetMaskSearchDir(const Value: string);
+begin
+  FMaskSearchDir := Value;
+end;
+
 procedure TMainForm.ShowInfo;
 var
   L: TStringList;
@@ -192,29 +250,57 @@ begin
       end;
 
       @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
-      FileSearchFunction('D:\');
+{
+      S:= FileSearchFunction('D:\', '*.*');
       Memo.Lines.Add('Задано: поиск файлов по маске XXX');
-
+}
       @SearchCharsFunction:= GetProcAddress(hLib1, 'SearchCharsSequence');
 
-      if SearchCharsFunction('a.bin', PAnsiChar('12'), 0, PosStr) then
+      if SearchCharsFunction('mko.exe', PAnsiChar('MZ'), 0, PosStr) then
       begin
         if PosStr<> nil then
         begin
           S:= PosStr;
-//          ShowMessage('Найдено: ' + PosStr);
-          StrDispose(PosStr);
+//               SetString(S, PosStr, StrLen(PosStr));
+//          StrDispose(PosStr);
           L1.DelimitedText:= S;
-          ShowMessage(L1[1]);
+          ShowMessage(S);
+{StrDispose(PosStr);
+ShowMessage(L1[0]);}
         end;
       end;
 
-      //ShowMessage(S);
     finally
       L1.Free;
       L.Free;
     end;
   end;
+end;
+
+procedure TMainForm.ShowNew(ANumber: integer);
+var
+  OldBkMode: integer;
+begin
+  Image.OnMouseDown:= CheckNew;
+  Image.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'drop.bmp');
+  OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
+  Image.Canvas.TextOut(2, 2, IntToStr(ANumber));
+  SetBkMode(Image.Canvas.Handle, OldBkMode);
+end;
+
+procedure TMainForm.StringGridClick(Sender: TObject);
+begin
+  case StringGrid.Row of
+  1:
+  begin
+    PageControl.ActivePageIndex:= 0;
+  end;
+  2:
+  begin
+    PageControl.ActivePageIndex:= 1;
+  end;
+  end;
+
 end;
 
 procedure TMainForm.WMCopyData(var Msg: TWMCopyData);
@@ -236,8 +322,9 @@ begin
       F.ListBox.Style:= lbVirtual;
       F.List:= L;
       F.ListBox.Count:= L.Count;
+      ShowNew(1);
       F.Show{Modal};
-      Memo.Lines.Add('Готово: поиск файлов по маске XXX');
+      Memo.Lines.Add('Готово: поиск файлов по маске ' + edMask.Text);
     finally
     //  F.Free;
     end;
