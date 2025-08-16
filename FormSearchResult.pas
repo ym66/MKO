@@ -14,6 +14,7 @@ type
     ListBox: TListBox;
     procedure ListBoxData(Control: TWinControl; Index: Integer; var Data: string);
     procedure btnOkClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     FList: TStringList;
     procedure SetList(const Value: TStringList);
@@ -32,6 +33,11 @@ implementation
 procedure TSearchResultForm.btnOkClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TSearchResultForm.FormResize(Sender: TObject);
+begin
+  btnOk.Left := (Self.Width div 2) - (btnOk.Width div 2);
 end;
 
 procedure TSearchResultForm.ListBoxData(Control: TWinControl; Index: Integer;

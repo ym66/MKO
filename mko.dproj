@@ -137,6 +137,10 @@
             <Form>SearchResultForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="FormFileView.pas">
+            <Form>FileViewForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -124,7 +124,9 @@ begin
     if TempStr <> '' then
     begin
       PositionsStr := StrAlloc(Length(TempStr) + 1);
-      StrPCopy(PositionsStr, TempStr);
+//      PositionsStr := PWideChar(LocalAlloc(LMEM_FIXED, Length(TempStr) + 1));
+      if PositionsStr <> nil then
+        StrPCopy(PositionsStr, TempStr);
     end;
 
     Result := True;

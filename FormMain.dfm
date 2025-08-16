@@ -211,11 +211,7 @@ object MainForm: TMainForm
               Height = 172
               Align = alClient
               TabOrder = 0
-              ExplicitLeft = 208
-              ExplicitTop = 72
-              ExplicitWidth = 185
-              ExplicitHeight = 41
-              object lblSubsttring: TLabel
+              object lblSubstring: TLabel
                 Left = 224
                 Top = 32
                 Width = 59
@@ -225,48 +221,62 @@ object MainForm: TMainForm
               object lblBytes: TLabel
                 Left = 224
                 Top = 85
-                Width = 48
+                Width = 82
                 Height = 15
-                Caption = #1055#1088#1080#1084#1077#1088':'
+                Caption = #1055#1088#1080#1084#1077#1088': 4D 5A'
               end
               object rgSearchSubstring: TRadioGroup
                 Left = 17
                 Top = 16
                 Width = 185
-                Height = 105
+                Height = 113
                 Caption = #1048#1089#1082#1072#1090#1100
+                ItemIndex = 0
+                Items.Strings = (
+                  #1055#1086#1076#1089#1090#1088#1086#1082#1091
+                  #1053#1072#1073#1086#1088' '#1073#1072#1081#1090)
                 TabOrder = 0
-              end
-              object RadioButton1: TRadioButton
-                Left = 32
-                Top = 40
-                Width = 113
-                Height = 17
-                Caption = #1055#1086#1076#1089#1090#1088#1086#1082#1091
-                TabOrder = 1
-              end
-              object RadioButton2: TRadioButton
-                Left = 32
-                Top = 80
-                Width = 113
-                Height = 17
-                Caption = #1053#1072#1073#1086#1088' '#1073#1072#1081#1090
-                TabOrder = 2
+                OnClick = rgSearchSubstringClick
               end
               object edSubstring: TEdit
                 Left = 224
-                Top = 56
+                Top = 106
                 Width = 177
                 Height = 23
-                TabOrder = 3
+                TabOrder = 1
+                Text = '4D 5A'
+                OnKeyPress = edSubstringKeyPress
               end
               object btnSearchSubstring: TButton
                 Left = 555
                 Top = 136
                 Width = 75
                 Height = 25
-                Caption = #1048#1089#1082#1072#1090#1100
+                Action = actSearchSubstring
+                TabOrder = 2
+              end
+              object btnFile: TButton
+                Left = 416
+                Top = 56
+                Width = 73
+                Height = 25
+                Action = actSetFile
+                TabOrder = 3
+              end
+              object btnConvert: TButton
+                Left = 416
+                Top = 106
+                Width = 88
+                Height = 25
+                Action = actConvertToBytes
                 TabOrder = 4
+              end
+              object edByteStr: TEdit
+                Left = 224
+                Top = 56
+                Width = 177
+                Height = 23
+                TabOrder = 5
               end
             end
           end
@@ -287,13 +297,22 @@ object MainForm: TMainForm
     end
     object actSearchSubstring: TAction
       Caption = #1048#1089#1082#1072#1090#1100
+      OnExecute = actSearchSubstringExecute
+    end
+    object actSetFile: TAction
+      Caption = #1060#1072#1081#1083'...'
+      OnExecute = actSetFileExecute
+    end
+    object actAddByte: TAction
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+    end
+    object actConvertToBytes: TAction
+      Caption = #1055#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1090#1100
+      OnExecute = actConvertToBytesExecute
     end
   end
-  object FileOpenDialog: TFileOpenDialog
-    FavoriteLinks = <>
-    FileTypes = <>
-    Options = []
+  object OpenDialog: TOpenDialog
     Left = 593
-    Top = 210
+    Top = 234
   end
 end

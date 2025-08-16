@@ -10,6 +10,7 @@ object SearchResultForm: TSearchResultForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnResize = FormResize
   TextHeight = 15
   object pnlBottom: TPanel
     Left = 0

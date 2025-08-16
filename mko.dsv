@@ -10,9 +10,9 @@ EditViewName=
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXGRsbDEuZHBy]
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
-CursorX=45
-CursorY=175
-TopLine=150
+CursorX=1
+CursorY=126
+TopLine=93
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,12 +20,12 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=68
-CursorY=317
-TopLine=294
+CursorX=10
+CursorY=218
+TopLine=185
 LeftCol=1
 Elisions=
-Bookmarks=
+Bookmarks={1,295,21}{2,143,6}{3,277,1}{5,235,1}
 EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 [ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
 XFNZU1xTeXN0ZW0ucGFz]
@@ -90,9 +90,9 @@ EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\Sy
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1TZWFyY2hSZXN1bHQucGFz]
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-CursorX=5
-CursorY=48
-TopLine=4
+CursorX=26
+CursorY=25
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -317,4 +317,75 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5FeHRDdHJscy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.ExtCtrls.pas
+CursorX=1
+CursorY=1011
+TopLine=989
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+
+[ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1GaWxlVmlldy5wYXM=]
+Module=E:\WORK\МКО Системы\MKO\FormFileView.pas
+CursorX=24
+CursorY=29
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=E:\WORK\МКО Системы\MKO\FormFileView.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5Db250cm9scy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas
+CursorX=1
+CursorY=7762
+TopLine=7740
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5Gb3Jtcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas
+CursorX=1
+CursorY=9870
+TopLine=9846
+LeftCol=1
+Elisions={{2051,4},{2067,15},{'TScrollWindow'}}{{2161,4},{2265,15},{'TMainMenuBarStyleHook'}}
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5Gb3Jtcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas
+CursorX=1
+CursorY=9870
+TopLine=9849
+LeftCol=1
+Elisions={{2051,4},{2067,15},{'TScrollWindow'}}{{2161,4},{2265,15},{'TMainMenuBarStyleHook'}}
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5Gb3Jtcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas
+CursorX=1
+CursorY=9870
+TopLine=9849
+LeftCol=1
+Elisions={{2051,4},{2067,15},{'TScrollWindow'}}{{2161,4},{2265,15},{'TMainMenuBarStyleHook'}}
+Bookmarks=
+EditViewName=
+
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
+XFZjbC5EaWFsb2dzLnBhcw==]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Dialogs.pas
+CursorX=1
+CursorY=6766
+TopLine=6744
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
 
