@@ -212,40 +212,18 @@ object MainForm: TMainForm
               Align = alClient
               TabOrder = 0
               object lblSubstring: TLabel
-                Left = 224
-                Top = 32
+                Left = 16
+                Top = 35
+                Width = 100
+                Height = 15
+                Caption = #1055#1086#1076#1089#1090#1088#1086#1082#1080' '#1095#1077#1088#1077#1079' ;'
+              end
+              object lblInfo: TLabel
+                Left = 16
+                Top = 85
                 Width = 59
                 Height = 15
                 Caption = #1055#1086#1076#1089#1090#1088#1086#1082#1072
-              end
-              object lblBytes: TLabel
-                Left = 224
-                Top = 85
-                Width = 82
-                Height = 15
-                Caption = #1055#1088#1080#1084#1077#1088': 4D 5A'
-              end
-              object rgSearchSubstring: TRadioGroup
-                Left = 17
-                Top = 16
-                Width = 185
-                Height = 113
-                Caption = #1048#1089#1082#1072#1090#1100
-                ItemIndex = 0
-                Items.Strings = (
-                  #1055#1086#1076#1089#1090#1088#1086#1082#1091
-                  #1053#1072#1073#1086#1088' '#1073#1072#1081#1090)
-                TabOrder = 0
-                OnClick = rgSearchSubstringClick
-              end
-              object edSubstring: TEdit
-                Left = 224
-                Top = 106
-                Width = 177
-                Height = 23
-                TabOrder = 1
-                Text = '4D 5A'
-                OnKeyPress = edSubstringKeyPress
               end
               object btnSearchSubstring: TButton
                 Left = 555
@@ -253,30 +231,23 @@ object MainForm: TMainForm
                 Width = 75
                 Height = 25
                 Action = actSearchSubstring
-                TabOrder = 2
+                TabOrder = 0
               end
               object btnFile: TButton
-                Left = 416
-                Top = 56
+                Left = 418
+                Top = 53
                 Width = 73
                 Height = 25
                 Action = actSetFile
-                TabOrder = 3
+                TabOrder = 1
               end
-              object btnConvert: TButton
-                Left = 416
-                Top = 106
-                Width = 88
-                Height = 25
-                Action = actConvertToBytes
-                TabOrder = 4
-              end
-              object edByteStr: TEdit
-                Left = 224
+              object edSubstring: TEdit
+                Left = 16
                 Top = 56
-                Width = 177
+                Width = 337
                 Height = 23
-                TabOrder = 5
+                TabOrder = 2
+                Text = 'Test'
               end
             end
           end
@@ -305,10 +276,6 @@ object MainForm: TMainForm
     end
     object actAddByte: TAction
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-    end
-    object actConvertToBytes: TAction
-      Caption = #1055#1088#1077#1086#1073#1088#1072#1079#1086#1074#1072#1090#1100
-      OnExecute = actConvertToBytesExecute
     end
   end
   object OpenDialog: TOpenDialog

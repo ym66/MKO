@@ -11,8 +11,10 @@ type
     pnlButtons: TPanel;
     btnOk: TButton;
     pnlCenter: TPanel;
-    RichEdit: TRichEdit;
+    lblCharsResult: TLabel;
+    ListBox: TListBox;
     procedure FormResize(Sender: TObject);
+    procedure btnOkClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,6 +27,11 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TFileViewForm.btnOkClick(Sender: TObject);
+begin
+  Close;
+end;
 
 procedure TFileViewForm.FormResize(Sender: TObject);
 begin

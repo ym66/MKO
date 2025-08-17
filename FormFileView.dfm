@@ -3,7 +3,7 @@ object FileViewForm: TFileViewForm
   Top = 0
   Caption = 'FileViewForm'
   ClientHeight = 441
-  ClientWidth = 624
+  ClientWidth = 399
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,49 +16,52 @@ object FileViewForm: TFileViewForm
   object pnlButtons: TPanel
     Left = 0
     Top = 392
-    Width = 624
+    Width = 399
     Height = 49
     Align = alBottom
     TabOrder = 0
+    ExplicitWidth = 624
     object btnOk: TButton
-      Left = 264
+      Left = 160
       Top = 16
       Width = 75
       Height = 25
       Caption = 'Ok'
       ModalResult = 1
       TabOrder = 0
+      OnClick = btnOkClick
     end
   end
   object pnlCenter: TPanel
     Left = 0
     Top = 0
-    Width = 624
+    Width = 399
     Height = 392
     Align = alClient
     BorderWidth = 5
     TabOrder = 1
-    ExplicitLeft = 360
-    ExplicitTop = 200
-    ExplicitWidth = 185
-    ExplicitHeight = 41
-    object RichEdit: TRichEdit
+    ExplicitWidth = 624
+    object lblCharsResult: TLabel
       Left = 6
       Top = 6
-      Width = 612
-      Height = 380
+      Width = 387
+      Height = 15
+      Align = alTop
+      Caption = 'lblCharsResult'
+      ExplicitWidth = 75
+    end
+    object ListBox: TListBox
+      Left = 6
+      Top = 21
+      Width = 387
+      Height = 365
       Align = alClient
-      Font.Charset = RUSSIAN_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -12
-      Font.Name = 'Courier'
-      Font.Style = [fsBold]
-      ParentFont = False
+      ItemHeight = 15
       TabOrder = 0
-      ExplicitLeft = 176
+      ExplicitLeft = 208
       ExplicitTop = 144
-      ExplicitWidth = 185
-      ExplicitHeight = 89
+      ExplicitWidth = 121
+      ExplicitHeight = 97
     end
   end
 end

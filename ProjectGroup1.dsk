@@ -1,38 +1,38 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.ExtCtrls.pas',0,1,989,1,1011,0,0,,
-File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas',0,1,9837,1,9858,0,0,,
-File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Masks.pas',0,1,293,1,315,0,0,,
-File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,11913,1,11881,0,0,,
-File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\GETMEM.INC',0,1,2124,1,2145,0,0,,
-File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas',0,1,15064,1,15086,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas',0,1,40830,1,40852,0,0,,
-File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas',0,1,6298,1,6319,0,0,,
-File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Messages.pas',0,1,610,24,631,0,0,,
-File_9=TSourceModule,'E:\WORK\МКО Системы\MKO\dll1.dll',0,1,1,1,1,0,0,,
-File_10=TSourceModule,'E:\WORK\IFC01\FormProgress.pas',0,1,1,1,1,0,0,,
-File_11=TSourceModule,'E:\WORK\IFC01\FormMain.pas',0,1,1,1,1,0,0,,
-File_12=TSourceModule,'D:\WORK\IFC\IFC\IfcParser.pas',0,1,1984,10,2015,0,0,,{1
-File_13=TSourceModule,'D:\WORK\IFC\IFC\FormMain.pas',0,1,391,77,422,0,0,,{1
-File_14=TSourceModule,'c:\program files (x86)\embarcadero\studio\22.0\source\rtl\common\System.Generics.Collections.pas',0,1,7228,1,7250,0,0,,
+File_0=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas',0,1,26314,1,26335,0,0,,
+File_1=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas',0,1,18564,1,18585,0,0,,
+File_2=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.SysUtils.pas',0,1,11924,1,11946,0,0,,
+File_3=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Dialogs.pas',0,1,6744,1,6766,0,0,,
+File_4=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Controls.pas',0,1,6862,1,6883,0,0,,
+File_5=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas',0,1,40692,1,40729,0,0,,
+File_6=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Forms.pas',0,1,9849,1,9870,0,0,{{2051,4}
+File_7=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.ExtCtrls.pas',0,1,989,1,1011,0,0,,
+File_8=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Masks.pas',0,1,293,1,315,0,0,,
+File_9=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\GETMEM.INC',0,1,2124,1,2145,0,0,,
+File_10=TSourceModule,'c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Messages.pas',0,1,610,24,631,0,0,,
+File_11=TSourceModule,'E:\WORK\МКО Системы\MKO\dll1.dll',0,1,1,1,1,0,0,,
+File_12=TSourceModule,'E:\WORK\IFC01\FormProgress.pas',0,1,1,1,1,0,0,,
+File_13=TSourceModule,'E:\WORK\IFC01\FormMain.pas',0,1,1,1,1,0,0,,
+File_14=TSourceModule,'D:\WORK\IFC\IFC\IfcParser.pas',0,1,1984,10,2015,0,0,,{1
 
 [Modules]
 Module0=E:\WORK\МКО Системы\MKO\FormMain.pas
-Module1=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module1=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 Module2=E:\WORK\МКО Системы\MKO\dll2.dproj
-Module3=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
+Module3=E:\WORK\МКО Системы\MKO\FormFileView.pas
 Count=4
 EditWindowCount=1
 
 [E:\WORK\МКО Системы\MKO\FormMain.pas]
 ModuleType=TSourceModule
 
-[E:\WORK\МКО Системы\MKO\dll1.dproj]
-ModuleType=TBaseProject
+[E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
+ModuleType=TSourceModule
 
 [E:\WORK\МКО Системы\MKO\dll2.dproj]
 ModuleType=TBaseProject
 
-[E:\WORK\МКО Системы\MKO\FormSearchResult.pas]
+[E:\WORK\МКО Системы\MKO\FormFileView.pas]
 ModuleType=TSourceModule
 
 [EditWindow0]
@@ -78,35 +78,35 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=22
-CursorY=205
-TopLine=198
+CursorX=5
+CursorY=306
+TopLine=283
 LeftCol=1
 Elisions=
-Bookmarks=
+Bookmarks={1,380,21}{2,137,6}{3,368,1}{5,331,1}
 EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 
 [View1]
 CustomEditViewType=TEditView
+Module=E:\WORK\МКО Системы\MKO\FormFileView.pas
+CursorX=24
+CursorY=29
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=Borland.FormDesignerView
+
+[View2]
+CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-CursorX=5
-CursorY=48
-TopLine=4
+CursorX=26
+CursorY=25
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-
-[View2]
-CustomEditViewType=TEditView
-Module=E:\WORK\МКО Системы\MKO\dll1.dpr
-CursorX=11
-CursorY=175
-TopLine=150
-LeftCol=1
-Elisions=
-Bookmarks=
-EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [View3]
 CustomEditViewType=TEditView
@@ -145,8 +145,14 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=1
-Breakpoint0='E:\WORK\МКО Системы\MKO\FormMain.pas',200,'',0,1,'',1,0,0,'',1,'','','',0,''
+Count=7
+Breakpoint0='E:\WORK\МКО Системы\MKO\dll1.dpr',154,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint1='E:\WORK\МКО Системы\MKO\dll1.dpr',205,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint2='E:\WORK\МКО Системы\MKO\FormMain.pas',215,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint3='E:\WORK\МКО Системы\MKO\FormMain.pas',211,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint4='E:\WORK\МКО Системы\MKO\FormMain.pas',213,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint5='E:\WORK\МКО Системы\MKO\FormMain.pas',316,'',0,1,'',1,0,0,'',1,'','','',0,''
+Breakpoint6='E:\WORK\МКО Системы\MKO\FormMain.pas',305,'',0,1,'',1,0,0,'',1,'','','',0,''
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -273,11 +279,6 @@ LRDockWidth=1895
 Dockable=1
 StayOnTop=0
 SplitPos=111
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=Name,OnClick
-ExpandedItems=LiveBindings=0,"LiveBindings Designer=0",Margins=0,Padding=0,StyleElements=0,Touch=0,Anchors=0,BevelEdges=0,Constraints=0,Font=0,HeaderFont=0,ImageMargins=0
 
 [frmDesignPreview]
 PercentageSizes=1
@@ -796,5 +797,5 @@ ActiveTabID=ToolForm
 TabDockClients=ToolForm,TemplateView
 
 [ActiveProject]
-ActiveProject=1
+ActiveProject=2
 

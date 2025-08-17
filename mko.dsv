@@ -11,8 +11,8 @@ EditViewName=
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXGRsbDEuZHBy]
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=1
-CursorY=126
-TopLine=93
+CursorY=151
+TopLine=94
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,12 +20,12 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=10
-CursorY=218
-TopLine=185
+CursorX=1
+CursorY=147
+TopLine=115
 LeftCol=1
 Elisions=
-Bookmarks={1,295,21}{2,143,6}{3,277,1}{5,235,1}
+Bookmarks={1,233,1}{2,128,24}{3,227,1}{5,180,1}
 EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 [ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
 XFNZU1xTeXN0ZW0ucGFz]
@@ -331,7 +331,7 @@ EditViewName=
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1GaWxlVmlldy5wYXM=]
 Module=E:\WORK\МКО Системы\MKO\FormFileView.pas
 CursorX=24
-CursorY=29
+CursorY=30
 TopLine=1
 LeftCol=1
 Elisions=
@@ -377,7 +377,6 @@ LeftCol=1
 Elisions={{2051,4},{2067,15},{'TScrollWindow'}}{{2161,4},{2265,15},{'TMainMenuBarStyleHook'}}
 Bookmarks=
 EditViewName=
-
 [ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcVkNM
 XFZjbC5EaWFsb2dzLnBhcw==]
 Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\VCL\Vcl.Dialogs.pas
@@ -388,4 +387,224 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0uU3lzVXRpbHMucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.SysUtils.pas
+CursorX=1
+CursorY=11946
+TopLine=11924
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0ucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+CursorX=1
+CursorY=26335
+TopLine=26314
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0ucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+CursorX=1
+CursorY=26335
+TopLine=26314
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0ucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+CursorX=1
+CursorY=1311
+TopLine=1289
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0uVHlwZXMucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.Types.pas
+CursorX=20
+CursorY=28
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.Types.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0uVHlwZXMucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.Types.pas
+CursorX=20
+CursorY=28
+TopLine=1
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.Types.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XHdpblxXaW5hcGkuV2luZG93cy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas
+CursorX=24
+CursorY=171
+TopLine=149
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XHdpblxXaW5hcGkuV2luZG93cy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas
+CursorX=24
+CursorY=171
+TopLine=149
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\win\Winapi.Windows.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18585
+TopLine=18564
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18584
+TopLine=18563
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxzb3VyY2VccnRs
+XGNvbW1vblxTeXN0ZW0uQ2xhc3Nlcy5wYXM=]
+Module=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+CursorX=1
+CursorY=18584
+TopLine=18563
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\System.Classes.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0ucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+CursorX=1
+CursorY=17928
+TopLine=17907
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+[ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
+XFNZU1xTeXN0ZW0ucGFz]
+Module=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
+CursorX=1
+CursorY=17928
+TopLine=17907
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=c:\program files (x86)\embarcadero\studio\23.0\SOURCE\RTL\SYS\System.pas
 

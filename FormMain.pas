@@ -12,9 +12,8 @@ uses
 type
   TStrFunction= function: PWideChar; stdcall;
   TFileSearchFunction= function(ADir, AMask: PWideChar): PWideChar; stdcall;
-  TSearchCharsFunction= function(const FileName: PChar; const Pattern: Pointer;
-                                 const PatternLen: Integer; {0- строка, >0- байты}
-                                 var PositionsStr: PChar): boolean; stdcall;
+  TSearchCharsFunction= function(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
+
 type
   TMainForm = class(TForm)
     pnlButtons: TPanel;
@@ -43,33 +42,27 @@ type
     lblMask: TLabel;
     lblSelected: TLabel;
     pnlSubstring: TPanel;
-    rgSearchSubstring: TRadioGroup;
     Label3: TLabel;
-    edSubstring: TEdit;
     lblSubstring: TLabel;
-    lblBytes: TLabel;
     btnSearchSubstring: TButton;
     actSearchSubstring: TAction;
     btnFile: TButton;
     OpenDialog: TOpenDialog;
     actSetFile: TAction;
     actAddByte: TAction;
-    btnConvert: TButton;
-    actConvertToBytes: TAction;
-    edByteStr: TEdit;
+    edSubstring: TEdit;
+    lblInfo: TLabel;
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure DirectoryListBoxChange(Sender: TObject);
     procedure actMaskSearchExecute(Sender: TObject);
     procedure StringGridClick(Sender: TObject);
-    procedure rgSearchSubstringClick(Sender: TObject);
-    procedure actSearchSubstringExecute(Sender: TObject);
     procedure actSetFileExecute(Sender: TObject);
-    procedure actConvertToBytesExecute(Sender: TObject);
     procedure edSubstringKeyPress(Sender: TObject; var Key: Char);
+    procedure actSearchSubstringExecute(Sender: TObject);
   private
-       Image: TImage;
+//       Image: TImage;
     hLib1: HMODULE;
     hLib2: HMODULE;
 
@@ -110,122 +103,82 @@ implementation
 
 {$R *.dfm}
 uses FormSearchResult, FormFileView;
-{
-function TMainForm.HexPairToByte(const S: string): Byte;
-var
-  Value: Integer;
-begin
-  if not TryStrToInt('$' + S, Value) then
-    raise Exception.CreateFmt('"%s" не является байтом', [S]);
-  Result := Byte(Value);
-end;
-}
 
 procedure TMainForm.actCloseExecute(Sender: TObject);
 begin
   Close;
 end;
 
-(*
+
+
 procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
 var
-  FFV: TFileViewForm;
-  FS: TFileStream;
-  ReadBytes, i: Integer;
-  Buffer: array[0..7] of Byte;
   PosStr: PChar;
   S: string;
-  L:TStringList;
+  SubStr: array of Byte; // подстрока для передачи в функцию Dll
+  L: TStringList;
+  L0: TStringList;
+  LAll: TStringList;
+  FFV: TFileViewForm;
+  i: integer;
+  j: integer;
+  C: char;
+  Sub: Ansistring; // подстрока
 begin
-  OpenDialog.InitialDir := GetCurrentDir;
-  if OpenDialog.Execute then
-  begin
-    FS:= TFileStream.Create(OpenDialog.FileName, fmOpenRead or fmShareDenyNone);
-    FFV:= TFileViewForm.Create(Self);
-    FFV.RichEdit.Lines.BeginUpdate;
-    try
-      L:= TStringList.Create;
-      while FS.Position < FS.Size do
-      begin
-        S:= '';
-        ReadBytes := FS.Read(Buffer, SizeOf(Buffer));
-        for i:= 0 to ReadBytes - 1 do
-        begin
-          S:= S + ' ' + IntToHex(Buffer[i], 2);
-        end;
-//        FFV.RichEdit.Lines.Add(S);
-        L.Add(S);
-        S:= '';
-      end;
-      FFV.RichEdit.MaxLength:= 2147483645;
-      FFV.RichEdit.Lines.Text:= L.Text;
-      FFV.Show{Modal};
-      FFV.RichEdit.SetFocus;
-      FFV.RichEdit.Selstart:= FFV.RichEdit.Perform(EM_LineIndex, 0, 0) + 0;
-      FFV.RichEdit.Perform(EM_ScrollCaret, 0, 0);
+   Memo.Lines.Add('Задано: поиск подстроки');
+   // Здесь храним подстроки
+   L0:= TStringList.Create;
+   LAll:= TStringList.Create;
+   try
+     L0.Duplicates:= dupIgnore;
+     L0.Delimiter:= ';';
+     L0.StrictDelimiter:= true;
+     L0.DelimitedText:= edSubstring.Text;
 
-  if SearchCharsFunction(PWideChar(OpenDialog.FileName), PAnsiChar(edSubstring.Text), 0, PosStr) then
-   begin
-     ShowMessage(PosStr);
-     S:= PosStr;
+     FFV:= TFileViewForm.Create(Self);
+
+
+     for j:= 0  to L0.Count - 1 do
+     begin
+       Sub:= L0[j];
+       SetLength(SubStr, Length(Sub));
+       for i:= 0 to Length(Sub) - 1 do
+       begin
+         SubStr[i]:= Ord(Sub[i + 1]);
+       end;
+    //   SubStr[0]:= ord('M');
+    //   SubStr[1]:= ord('Z');
+       PosStr:= SearchCharsFunction(PWideChar(FFileToSearchSubstring), @SubStr[0], 2);
+       if Assigned(PosStr) then
+       begin
+    //     ShowMessage(String(PosStr));
+         S:= PosStr;
+       end else Exit;
+       LocalFree(HLOCAL(PosStr));
+       L:= TStringList.Create;
+       try
+         L.Delimiter:= ',';
+         L.StrictDelimiter:= true;
+         L.DelimitedText:= S;
+         for i:= 0 to L.Count - 1 do
+         begin
+           L[i]:= L[i] + ' позиция ' + QuotedStr(L0[j]) + ' в ' + FFileToSearchSubstring;
+           LAll.Add(L[i]);
+         end;
+       finally
+         L.Free;
+       end;
+
+     end;   //for
+     FFV.ListBox.Items:= LAll;
+   finally
+     L0.Free;
+     LAll.Free;
    end;
-   LocalFree(HLOCAL(PosStr));
-
-    finally
-      FFV.RichEdit.Lines.EndUpdate;
-      FS.Free;
-    end;
-  end;
+   FFV.lblCharsResult.Caption:= 'Позиции подстрок ' + QuotedStr(edSubstring.Text) + ' в файле ' + FFileToSearchSubstring;
+   FFV.Show;
+   Memo.Lines.Add('Готово: поиск подстроки');
 end;
-*)
-
-procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
-var
-  FFV: TFileViewForm;
-  FS: TFileStream;
-  ReadBytes, i: Integer;
-  Buffer: array[0..7] of Byte;
-  PosStr: PChar;
-  S: string;
-  L:TStringList;
-begin
-//  FS:= TFileStream.Create(OpenDialog.FileName, fmOpenRead or fmShareDenyNone);
-//  FFV:= TFileViewForm.Create(Self);
-//  FFV.RichEdit.Lines.BeginUpdate;
-  try
-{    L:= TStringList.Create;
-    while FS.Position < FS.Size do
-    begin
-      S:= '';
-      ReadBytes := FS.Read(Buffer, SizeOf(Buffer));
-      for i:= 0 to ReadBytes - 1 do
-      begin
-        S:= S + ' ' + IntToHex(Buffer[i], 2);
-      end;
-//        FFV.RichEdit.Lines.Add(S);
-      L.Add(S);
-      S:= '';
-    end;
-    FFV.RichEdit.Lines.Text:= L.Text;
-    FFV.Show{Modal};
-{    FFV.RichEdit.SetFocus;
-    FFV.RichEdit.Selstart:= FFV.RichEdit.Perform(EM_LineIndex, 0, 0) + 0;
-    FFV.RichEdit.Perform(EM_ScrollCaret, 0, 0);
- }
-
- if SearchCharsFunction(PWideChar(FFileToSearchSubstring), {PAnsiChar('MZ')}PAnsiChar(edByteStr.Text), 0, PosStr) then
- begin
-   S:= PosStr;
-   ShowMessage(S);
- end;
- LocalFree(HLOCAL(PosStr));
-
-  finally
-//    FFV.RichEdit.Lines.EndUpdate;
-//    FS.Free;
-  end;
-end;
-
 
 procedure TMainForm.actSetFileExecute(Sender: TObject);
 begin
@@ -233,13 +186,15 @@ begin
   if OpenDialog.Execute then
   begin
     FFileToSearchSubstring:= OpenDialog.FileName;
+    btnSearchSubstring.Enabled:= true;
+    lblInfo.Caption:='Подстроки ' + edSubstring.Text + ' в файле ' + FFileToSearchSubstring;
+    lblInfo.Visible:= true;
   end else
   begin
     FFileToSearchSubstring:= '';
     lblSubstring.Caption:= '';
+    btnSearchSubstring.Enabled:= false;
   end;
-  rgSearchSubstringClick(Self);
-  btnSearchSubstring.Enabled:= (edByteStr.Text <> '') and (FileToSearchSubstring <> '')
 end;
 
 function TMainForm.HexToBytes(const S: string): TBytes;
@@ -268,17 +223,6 @@ begin
   end;
 end;
 
-procedure TMainForm.actConvertToBytesExecute(Sender: TObject);
-var
-  Bytes: TBytes;
-  i: Integer;
-begin
-  edByteStr.Clear;
-  Bytes := HexToBytes(edSubstring.Text);
-  for i := 0 to High(Bytes) do
-//    edByteStr.Text:= edByteStr.Text + HexToStr(Bytes[i]);
-    edByteStr.Text:= edByteStr.Text + Chr(Bytes[i]);
-end;
 
 procedure TMainForm.actMaskSearchExecute(Sender: TObject);
 begin
@@ -286,21 +230,6 @@ begin
    Memo.Lines.Add('Задано: поиск файлов по маске ' + edMask.Text);
 end;
 
-{
-procedure TMainForm.btnSearchSubstringClick(Sender: TObject);
-var
-  PosStr: PChar;
-  S: string;
-begin
-  if SearchCharsFunction('mko.exe', PAnsiChar('MZ'), 0, PosStr) then
-   begin
-//     ShowMessage(String(PosStr));
-     S:= PosStr;
-     ShowViewer(S);
-   end;
-   LocalFree(HLOCAL(PosStr));
-end;
-}
 procedure TMainForm.CheckNew(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
@@ -326,7 +255,7 @@ var
   Page: integer;
 begin
   StatusBar.DoubleBuffered:= true;
-  Image:= TImage.Create(StatusBar);
+{  Image:= TImage.Create(StatusBar);
   Image.Left:= StatusBar.Width - 16;
   Image.Top:= 2;
   Image.Parent:= StatusBar;
@@ -334,7 +263,7 @@ begin
   Image.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'drop.bmp');
   OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
   Image.Canvas.TextOut(2, 2, '10');
-  SetBkMode(Image.Canvas.Handle, OldBkMode);
+  SetBkMode(Image.Canvas.Handle, OldBkMode);}
 
   StringGrid.Cells[0, 0]:= 'Библиотека';
   StringGrid.Cells[1, 0]:= 'Функция';
@@ -347,17 +276,17 @@ begin
   PageControl.ActivePage:= TabSheet1;
 
   DirectoryListBoxChange(Self);
-  rgSearchSubstringClick(Self);
-//  edSubstring.Text := 'DE AD BE EF';
+
   btnSearchSubstring.Enabled:= FFileToSearchSubstring <> '';
+  lblInfo.Visible:= false;
   InitDlls;
   ShowInfo;
 end;
 
 procedure TMainForm.FormResize(Sender: TObject);
 begin
-  Image.Left:= StatusBar.Width - 16;
-  Image.Top:= 2;
+{  Image.Left:= StatusBar.Width - 16;
+  Image.Top:= 2;}
 end;
 
 procedure TMainForm.InitDlls;
@@ -396,31 +325,6 @@ begin
 
 end;
 
-procedure TMainForm.rgSearchSubstringClick(Sender: TObject);
-begin
-  lblBytes.Visible:= rgSearchSubstring.ItemIndex > 0;
-  if rgSearchSubstring.ItemIndex = 0 then
-  begin
-    lblSubstring.Caption:= 'Подстрока ' + QuotedStr(edByteStr.Text) + ' в файле ' + FFileToSearchSubstring;
-    lblBytes.Visible:= false;
-    lblSubstring.Visible:= true;
-    edSubstring.Visible:= false;
-    btnConvert.Visible:= false;
-    btnSearchSubstring.Enabled:= (edByteStr.Text <> '') and (FFileToSearchSubstring <> '');
-  end else
-  begin
-    lblSubstring.Caption:= 'Набор байт ' +
-                           QuotedStr(edByteStr.Text) +
-                           ' в файле ' +
-                           FFileToSearchSubstring;
-    lblBytes.Visible:= true;
-    lblSubstring.Visible:= true;
-    edSubstring.Visible:= true;
-    btnConvert.Visible:= true;
-    btnSearchSubstring.Enabled:= (edByteStr.Text <> '') and (FFileToSearchSubstring <> '');
-  end;
-end;
-
 procedure TMainForm.SetFileToSearchSubstring(const Value: string);
 begin
   FFileToSearchSubstring := Value;
@@ -447,7 +351,7 @@ var
   L1: TStringList;
   S: string;
   i: integer;
-//  PosStr: PChar;
+  PosStr: PChar;
 begin
   if IsDll1 then
   begin
@@ -483,18 +387,8 @@ begin
 
       @FileSearchFunction:= GetProcAddress(hLib1, 'GetFiles');
 
-      @SearchCharsFunction:= GetProcAddress(hLib1, 'SearchCharsSequence');
-{
-      if SearchCharsFunction('mko.exe', PAnsiChar('MZ'), 0, PosStr) then
-      begin
-        if PosStr<> nil then
-        begin
-          S:= PosStr;
-          L1.DelimitedText:= S;
-//          ShowMessage(S);
-        end;
-      end;
-}
+      @SearchCharsFunction:= GetProcAddress(hLib1, 'FindSubstringInFile');
+
     finally
       L1.Free;
       L.Free;
@@ -506,11 +400,11 @@ procedure TMainForm.ShowNew(ANumber: integer);
 var
   OldBkMode: integer;
 begin
-  Image.OnMouseDown:= CheckNew;
+{  Image.OnMouseDown:= CheckNew;
   Image.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'drop.bmp');
   OldBkMode := SetBkMode(Image.Canvas.Handle, Transparent);
   Image.Canvas.TextOut(2, 2, IntToStr(ANumber));
-  SetBkMode(Image.Canvas.Handle, OldBkMode);
+  SetBkMode(Image.Canvas.Handle, OldBkMode);}
 end;
 
 procedure TMainForm.StringGridClick(Sender: TObject);
@@ -528,6 +422,7 @@ begin
 
 end;
 
+// Вывод результата поиска файлов
 procedure TMainForm.WMCopyData(var Msg: TWMCopyData);
 var
   ReceivedStr: string;
@@ -548,10 +443,9 @@ begin
       F.List:= L;
       F.ListBox.Count:= L.Count;
       ShowNew(1);
-      F.Show{Modal};
+      F.Show;
       Memo.Lines.Add('Готово: поиск файлов по маске ' + edMask.Text);
     finally
-    //  F.Free;
     end;
 
   end;

@@ -9,7 +9,6 @@ uses
 
 {$R *.res}
 type
-
   TBuffer =  array[0..1024 * 1024] of byte;
   PBuffer = ^TBuffer;
 
@@ -26,7 +25,7 @@ type
 
 function GetInfo: PWideChar; stdcall;
 begin
-  Result:= 'GetFiles,Поиск  списка  файлов  по  маске;SearchCharsSequence,Поиск вхождений последовательности символов в файле';
+  Result:= 'GetFiles,Поиск  списка  файлов  по  маске;FindSubstringInFile,Поиск вхождений последовательности символов в файле';
 end;
 
 function GetFiles(ADir, AMask: PWideChar): PWideChar; stdcall;
@@ -57,89 +56,106 @@ begin
   Result:= '';
 end;
 
+
+
 // Поиск подстроки в файле
-function SearchCharsSequence(const FileName: PChar; const Pattern: Pointer;
-                             const PatternLen: Integer; {0- строка, >0- байты}
-                             var PositionsStr: PChar): Boolean; stdcall;
+function FindSubstringInFile(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
 const
-  BUF_SIZE = 65536; // 64 KB
+  BUFFER_SIZE = 65536; // 64 КБ
 var
-  FS: TFileStream;
+  Stream: TFileStream;
   Buffer: array of Byte;
-  ReadBytes, i, Overlap: Integer;
-  GlobalOffset: Int64;
-  TempStr: string;
-  SearchData: TBytes;
-  ActualLen: Integer;
+  BytesRead, I: Integer;
+  Found: Boolean;
+  Positions: TStringList;
+  ResultStr: string;
+  SearchPos: Int64;
 begin
-  Result := False;
-  PositionsStr := nil;
-  TempStr := '';
-
-  if (FileName = nil) or (Pattern = nil) then Exit;
-  if not FileExists(FileName) then Exit;
-
-  // Определяем длину шаблона
-  if PatternLen = 0 then
-    ActualLen := StrLen(PAnsiChar(Pattern)) // строка
-  else
-    ActualLen := PatternLen;               // бинарные данные
-
-  if ActualLen <= 0 then Exit;
-
-  // Записываем шаблон в массив байтов
-  SetLength(SearchData, ActualLen);
-  Move(Pattern^, SearchData[0], ActualLen);
-
-  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone{fmShareDenyWrite});
+  Result := nil;
+  Positions := TStringList.Create;
   try
-    SetLength(Buffer, BUF_SIZE + ActualLen - 1);
-    GlobalOffset := 0;
-
-    while FS.Position < FS.Size do
-    begin
-      ReadBytes := FS.Read(Buffer[0], BUF_SIZE);
-
-      // Перекрытие на границах
-      if (FS.Position < FS.Size) and (ActualLen > 1) then
+    try
+      // Проверка входных параметров
+      if (SubStrLen <= 0) or (SubStr = nil) or (FileName = nil) then
       begin
-        Overlap := ActualLen - 1;
-        FS.Read(Buffer[ReadBytes], Overlap);
-        FS.Position := FS.Position - Overlap;
-        Inc(ReadBytes, Overlap);
+        Result := StrAlloc(1);
+        Result[0] := #0;
+        Exit;
       end;
 
-      for i := 0 to ReadBytes - ActualLen do
-      begin
-        if CompareMem(@Buffer[i], @SearchData[0], ActualLen) then
+      // Открываем файл
+      Stream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+      try
+        SetLength(Buffer, BUFFER_SIZE + SubStrLen - 1);
+        SearchPos := 0;
+
+        // Первоначальное чтение
+        BytesRead := Stream.Read(Buffer[0], BUFFER_SIZE);
+        if BytesRead < SubStrLen then
         begin
-          if TempStr <> '' then TempStr := TempStr + ',';
-          TempStr := TempStr + IntToStr(GlobalOffset + i);
+          // Файл слишком маленький
+          Result := StrAlloc(10);
+          StrPCopy(Result, 'Not found');
+          Exit;
         end;
+
+        while BytesRead >= SubStrLen do
+        begin
+          // Поиск в текущем буфере
+          for I := 0 to BytesRead - SubStrLen do
+          begin
+            Found := True;
+            for var J := 0 to SubStrLen - 1 do
+              if Buffer[I + J] <> SubStr[J] then
+              begin
+                Found := False;
+                Break;
+              end;
+
+            if Found then
+              Positions.Add(IntToStr(SearchPos + I));
+          end;
+
+          // Сохраняем конец буфера для перекрытия
+          if BytesRead >= SubStrLen - 1 then
+          begin
+            Move(Buffer[BytesRead - (SubStrLen - 1)], Buffer[0], SubStrLen - 1);
+            SearchPos := SearchPos + BytesRead - (SubStrLen - 1);
+          end;
+
+          // Читаем следующую порцию
+          BytesRead := Stream.Read(Buffer[SubStrLen - 1], BUFFER_SIZE);
+          if BytesRead > 0 then
+            BytesRead := BytesRead + (SubStrLen - 1);
+        end;
+
+        // Формируем результат
+        if Positions.Count > 0 then
+          ResultStr := Positions.CommaText
+        else
+          ResultStr := 'Not found';
+
+        Result := StrAlloc(Length(ResultStr) + 1);
+        StrPCopy(Result, ResultStr);
+      finally
+        Stream.Free;
       end;
-
-      Inc(GlobalOffset, ReadBytes - (ActualLen - 1));
+    except
+      on E: Exception do
+      begin
+        Result := StrAlloc(64);
+        StrPCopy(Result, 'Error: ' + E.Message);
+      end;
     end;
-
-    if TempStr <> '' then
-    begin
-      PositionsStr := StrAlloc(Length(TempStr) + 1);
-//      PositionsStr := PWideChar(LocalAlloc(LMEM_FIXED, Length(TempStr) + 1));
-      if PositionsStr <> nil then
-        StrPCopy(PositionsStr, TempStr);
-    end;
-
-    Result := True;
   finally
-    FS.Free;
+    Positions.Free;
   end;
 end;
-
 
 exports
   GetInfo,
   GetFiles,
-  SearchCharsSequence;
+  FindSubstringInFile;
 
 { TSearchThread }
 
