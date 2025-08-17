@@ -529,7 +529,8 @@ begin
       F.ListBox.Style:= lbVirtual;
       F.List:= L;
       F.ListBox.Count:= L.Count;
-      ShowNew(1);
+      //ShowNew(1);
+      F.Caption:= 'Результат поиска файлов по маске ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
       F.Show;
       Memo.Lines.Add('Готово: поиск файлов по маске ' + edMask.Text);
     finally

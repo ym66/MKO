@@ -11,8 +11,8 @@ EditViewName=
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXGRsbDEuZHBy]
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=1
-CursorY=1
-TopLine=1
+CursorY=162
+TopLine=171
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,9 +20,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=20
-CursorY=270
-TopLine=262
+CursorX=16
+CursorY=533
+TopLine=498
 LeftCol=1
 Elisions=
 Bookmarks={1,304,1}{2,175,24}{3,298,1}{5,227,1}
