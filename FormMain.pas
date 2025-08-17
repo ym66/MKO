@@ -10,9 +10,28 @@ uses
   Vcl.Samples.DirOutln;
 
 type
+// Типы функций из DLL
   TStrFunction= function: PWideChar; stdcall;
   TFileSearchFunction= function(ADir, AMask: PWideChar): PWideChar; stdcall;
   TSearchCharsFunction= function(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
+
+// Типы коллбеков
+type
+  TOutputCallback = procedure(const Line: PChar; UserData: Pointer); stdcall;
+  TFinishedCallback = procedure(ExitCode: DWORD; UserData: Pointer); stdcall;
+
+// Типы функций из DLL
+type
+  TRunProcess = function(const CmdLine: PChar;
+                         OutputCB: TOutputCallback;
+                         FinishedCB: TFinishedCallback;
+                         UserData: Pointer): Pointer; stdcall;
+  TTerminateProcessTask = function(TaskPtr: Pointer): BOOL; stdcall;
+  TFreeProcessTask = procedure(TaskPtr: Pointer); stdcall;
+
+// Коллбеки
+  procedure OnOutput(const Line: PChar; UserData: Pointer); stdcall;
+  procedure OnFinished(ExitCode: DWORD; UserData: Pointer); stdcall;
 
 type
   TMainForm = class(TForm)
@@ -49,9 +68,17 @@ type
     btnFile: TButton;
     OpenDialog: TOpenDialog;
     actSetFile: TAction;
-    actAddByte: TAction;
     edSubstring: TEdit;
     lblInfo: TLabel;
+    TabSheet3: TTabSheet;
+    pnlRunProcess: TPanel;
+    lblCommand: TLabel;
+    edCommand: TEdit;
+    btnStart: TButton;
+    memoProcess: TMemo;
+    actStart: TAction;
+    Button1: TButton;
+    actStop: TAction;
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -61,6 +88,9 @@ type
     procedure actSetFileExecute(Sender: TObject);
     procedure edSubstringKeyPress(Sender: TObject; var Key: Char);
     procedure actSearchSubstringExecute(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure actStartExecute(Sender: TObject);
+    procedure actStopExecute(Sender: TObject);
   private
 //       Image: TImage;
     hLib1: HMODULE;
@@ -71,6 +101,11 @@ type
     InfoFunction2: TStrFunction;
     FileSearchFunction: TFileSearchFunction;
     SearchCharsFunction: TSearchCharsFunction;
+
+    RunProcess: TRunProcess;
+
+    FreeProcessTask: TFreeProcessTask;
+
     FIsDll1: boolean;
     FIsDll2: boolean;
     FMaskSearchDir: string;
@@ -88,6 +123,8 @@ type
   protected
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
   public
+    TerminateProcessTask: TTerminateProcessTask;
+    Task: Pointer;
     property IsDll1: boolean read FIsDll1 write SetIsDll1;
     property IsDll2: boolean read FIsDll2 write SetIsDll2;
     property MaskSearchDir: string read FMaskSearchDir write SetMaskSearchDir;
@@ -104,12 +141,22 @@ implementation
 {$R *.dfm}
 uses FormSearchResult, FormFileView;
 
+
+procedure OnOutput(const Line: PChar; UserData: Pointer); stdcall;
+begin
+  MainForm.memoProcess.Lines.Add(string(Line));
+end;
+
+procedure OnFinished(ExitCode: DWORD; UserData: Pointer); stdcall;
+begin
+  MainForm.memoProcess.Lines.Add(Format('*** Процесс завершён, код: %d ***', [ExitCode]));
+  MainForm.Memo.Lines.Add('Готово: ' + MainForm.edCommand.Text);
+end;
+
 procedure TMainForm.actCloseExecute(Sender: TObject);
 begin
   Close;
 end;
-
-
 
 procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
 var
@@ -197,6 +244,30 @@ begin
   end;
 end;
 
+procedure TMainForm.actStartExecute(Sender: TObject);
+begin
+  if Assigned(RunProcess) then
+  begin
+    MemoProcess.Clear;
+    // запускаем 7z архиватор (или любую CLI-команду)
+    Task := RunProcess(PChar(edCommand.Text),{'cmd /c "7z a archive.7z *.txt"',}
+                       @OnOutput,
+                       @OnFinished,
+                       nil);
+    Memo.Lines.Add('Задано: ' + edCommand.Text);
+  end
+  else;
+end;
+
+procedure TMainForm.actStopExecute(Sender: TObject);
+begin
+  if Assigned(TerminateProcessTask) and (Task <> nil) then
+  begin
+    if MainForm.TerminateProcessTask(Task) then
+      MemoProcess.Lines.Add('Процесс принудительно завершён');
+  end;
+end;
+
 function TMainForm.HexToBytes(const S: string): TBytes;
 var
   Parts: TStringList;
@@ -281,6 +352,15 @@ begin
   lblInfo.Visible:= false;
   InitDlls;
   ShowInfo;
+  btnStart.Enabled:= IsDll2;
+end;
+
+procedure TMainForm.FormDestroy(Sender: TObject);
+begin
+ if Assigned(FreeProcessTask) and (Task <> nil) then
+    FreeProcessTask(Task);
+  if hLib1 <> 0 then
+    FreeLibrary(hLib1);
 end;
 
 procedure TMainForm.FormResize(Sender: TObject);
@@ -322,7 +402,6 @@ begin
     StatusBar.Panels[0].Text:= 'Ошибка: Не загружена dll2.dll';
     Memo.Lines.Add('Ошибка: Не загружена dll2.dll');
   end;
-
 end;
 
 procedure TMainForm.SetFileToSearchSubstring(const Value: string);
@@ -389,6 +468,10 @@ begin
 
       @SearchCharsFunction:= GetProcAddress(hLib1, 'FindSubstringInFile');
 
+
+      @RunProcess:= GetProcAddress(hLib2, 'RunProcess');
+      @TerminateProcessTask := GetProcAddress(hLib2, 'TerminateProcessTask');
+      @FreeProcessTask := GetProcAddress(hLib2, 'FreeProcessTask');
     finally
       L1.Free;
       L.Free;
@@ -397,8 +480,8 @@ begin
 end;
 
 procedure TMainForm.ShowNew(ANumber: integer);
-var
-  OldBkMode: integer;
+{var
+  OldBkMode: integer;}
 begin
 {  Image.OnMouseDown:= CheckNew;
   Image.Picture.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'drop.bmp');
@@ -417,6 +500,10 @@ begin
   2:
   begin
     PageControl.ActivePageIndex:= 1;
+  end;
+  3:
+  begin
+    PageControl.ActivePageIndex:= 2;
   end;
   end;
 

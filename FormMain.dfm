@@ -12,6 +12,7 @@ object MainForm: TMainForm
   Font.Style = []
   Position = poDesktopCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnResize = FormResize
   TextHeight = 15
   object Label3: TLabel
@@ -123,7 +124,7 @@ object MainForm: TMainForm
           Top = 6
           Width = 642
           Height = 202
-          ActivePage = TabSheet2
+          ActivePage = TabSheet3
           Align = alClient
           TabOrder = 0
           object TabSheet1: TTabSheet
@@ -251,6 +252,57 @@ object MainForm: TMainForm
               end
             end
           end
+          object TabSheet3: TTabSheet
+            Caption = 'TabSheet3'
+            ImageIndex = 2
+            object pnlRunProcess: TPanel
+              Left = 0
+              Top = 0
+              Width = 634
+              Height = 172
+              Align = alClient
+              TabOrder = 0
+              object lblCommand: TLabel
+                Left = 20
+                Top = 17
+                Width = 101
+                Height = 15
+                Caption = #1050#1086#1084#1072#1085#1076#1085#1072#1103' '#1089#1090#1088#1086#1082#1072
+              end
+              object edCommand: TEdit
+                Left = 127
+                Top = 16
+                Width = 402
+                Height = 23
+                TabOrder = 0
+                Text = 'cmd /c "D:\Program Files\7-Zip\7z" a archive.7z *.txt'
+              end
+              object btnStart: TButton
+                Left = 454
+                Top = 136
+                Width = 75
+                Height = 25
+                Action = actStart
+                TabOrder = 1
+              end
+              object memoProcess: TMemo
+                Left = 32
+                Top = 56
+                Width = 337
+                Height = 105
+                ScrollBars = ssBoth
+                TabOrder = 2
+              end
+              object Button1: TButton
+                Left = 535
+                Top = 136
+                Width = 75
+                Height = 25
+                Action = actStop
+                TabOrder = 3
+              end
+            end
+          end
         end
       end
     end
@@ -274,8 +326,13 @@ object MainForm: TMainForm
       Caption = #1060#1072#1081#1083'...'
       OnExecute = actSetFileExecute
     end
-    object actAddByte: TAction
-      Caption = #1044#1086#1073#1072#1074#1080#1090#1100
+    object actStart: TAction
+      Caption = #1057#1090#1072#1088#1090
+      OnExecute = actStartExecute
+    end
+    object actStop: TAction
+      Caption = #1057#1090#1086#1087
+      OnExecute = actStopExecute
     end
   end
   object OpenDialog: TOpenDialog
