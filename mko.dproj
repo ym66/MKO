@@ -141,8 +141,8 @@
             <Form>FileViewForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="FormRunProcess.pas">
-            <Form>RunProcessForm</Form>
+        <DCCReference Include="FormProcess.pas">
+            <Form>ProcessForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Base">

@@ -39,9 +39,9 @@ end;
 
 procedure TRunProcessForm.btnStopClick(Sender: TObject);
 begin
-  if Assigned(MainForm.TerminateProcessTask) and (Task <> nil) then
+  if Assigned(MainForm.StopProcess) and (Task <> nil) then
   begin
-    if MainForm.TerminateProcessTask(Task) then
+    if MainForm.StopProcess(Task) then
       MemoProcess.Lines.Add('Процесс принудительно завершён');
     btnClose.Enabled:= true;
   end;

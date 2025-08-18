@@ -78,7 +78,7 @@ type
     btnStart: TButton;
     memoProcess: TMemo;
     actStart: TAction;
-    Button1: TButton;
+    btnStop: TButton;
     actStop: TAction;
     procedure actCloseExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -91,7 +91,6 @@ type
     procedure actSearchSubstringExecute(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actStartExecute(Sender: TObject);
-    procedure actStopExecute(Sender: TObject);
   private
 //       Image: TImage;
     hLib1: HMODULE;
@@ -103,7 +102,6 @@ type
     FileSearchFunction: TFileSearchFunction;
     SearchCharsFunction: TSearchCharsFunction;
 
-    RunProcess: TRunProcess;
 
     FreeProcessTask: TFreeProcessTask;
 
@@ -124,7 +122,10 @@ type
   protected
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
   public
-    TerminateProcessTask: TTerminateProcessTask;
+    RunProcess: TRunProcess;
+    StopProcess: TTerminateProcessTask;
+
+//    TerminateProcessTask: TTerminateProcessTask;
     Task: Pointer;
     property IsDll1: boolean read FIsDll1 write SetIsDll1;
     property IsDll2: boolean read FIsDll2 write SetIsDll2;
@@ -140,7 +141,7 @@ var
 implementation
 
 {$R *.dfm}
-uses FormSearchResult, FormFileView;
+uses FormSearchResult, FormFileView, FormProcess;
 
 
 procedure OnOutput(const Line: PChar; UserData: Pointer); stdcall;
@@ -248,27 +249,24 @@ begin
 end;
 
 procedure TMainForm.actStartExecute(Sender: TObject);
+var
+  FP: TProcessForm;
 begin
   if Assigned(RunProcess) then
   begin
-    MemoProcess.Clear;
+     if edCommand.Text = '' then Exit;
+
+//    MemoProcess.Clear;
     // запускаем 7z архиватор (или любую CLI-команду)
-    Task := RunProcess(PChar(edCommand.Text),{'cmd /c "7z a archive.7z *.txt"',}
+(*    Task := RunProcess(PChar(edCommand.Text),{'cmd /c "7z a archive.7z *.txt"',}
                        @OnOutput,
                        @OnFinished,
-                       nil);
-    Memo.Lines.Add('Задано: ' + edCommand.Text);
+                       nil);*)
+     FP:= TProcessForm.CreateWithProcess(edCommand.Text);
+     FP.Show;
+     Memo.Lines.Add('Задано: ' + edCommand.Text);
   end
   else;
-end;
-
-procedure TMainForm.actStopExecute(Sender: TObject);
-begin
-  if Assigned(TerminateProcessTask) and (Task <> nil) then
-  begin
-    if MainForm.TerminateProcessTask(Task) then
-      MemoProcess.Lines.Add('Процесс принудительно завершён');
-  end;
 end;
 
 function TMainForm.HexToBytes(const S: string): TBytes;
@@ -473,7 +471,7 @@ begin
 
 
       @RunProcess:= GetProcAddress(hLib2, 'RunProcess');
-      @TerminateProcessTask := GetProcAddress(hLib2, 'TerminateProcessTask');
+      @StopProcess := GetProcAddress(hLib2, 'TerminateProcessTask');
       @FreeProcessTask := GetProcAddress(hLib2, 'FreeProcessTask');
     finally
       L1.Free;

@@ -124,7 +124,7 @@ object MainForm: TMainForm
           Top = 6
           Width = 642
           Height = 202
-          ActivePage = TabSheet1
+          ActivePage = TabSheet3
           Align = alClient
           TabOrder = 0
           object TabSheet1: TTabSheet
@@ -279,7 +279,7 @@ object MainForm: TMainForm
               end
               object btnStart: TButton
                 Left = 454
-                Top = 136
+                Top = 56
                 Width = 75
                 Height = 25
                 Action = actStart
@@ -292,14 +292,17 @@ object MainForm: TMainForm
                 Height = 105
                 ScrollBars = ssBoth
                 TabOrder = 2
+                Visible = False
               end
-              object Button1: TButton
+              object btnStop: TButton
                 Left = 535
                 Top = 136
                 Width = 75
                 Height = 25
                 Action = actStop
+                Enabled = False
                 TabOrder = 3
+                Visible = False
               end
             end
           end
@@ -332,7 +335,6 @@ object MainForm: TMainForm
     end
     object actStop: TAction
       Caption = #1057#1090#1086#1087
-      OnExecute = actStopExecute
     end
   end
   object OpenDialog: TOpenDialog
