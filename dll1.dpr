@@ -57,82 +57,103 @@ begin
 end;
 
 
-
 // Поиск подстроки в файле
-function FindSubstringInFile(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
+function FindSubstringInFile(FileName: PChar; SubStr: PChar; Encoding: Integer): PChar; stdcall;
 const
   BUFFER_SIZE = 65536; // 64 КБ
 var
   Stream: TFileStream;
-  Buffer: array of Byte;
-  BytesRead, I: Integer;
-  Found: Boolean;
   Positions: TStringList;
   ResultStr: string;
-  SearchPos: Int64;
+
+  function SearchWithEncoding(Enc: TEncoding): string;
+  var
+    I, J: Integer;
+    SubStrLen: Integer;
+    SubStrBytes: TBytes;
+    Found: Boolean;
+    SearchPos: Int64;
+    Buffer: array of Byte;
+    ReadBytes, ValidBytes, Tail: Integer;
+  begin
+    Result := '';
+    Positions.Clear;
+
+    // подстрока в байты
+    SubStrBytes := Enc.GetBytes(SubStr);
+    SubStrLen := Length(SubStrBytes);
+    if SubStrLen = 0 then Exit;
+
+    Stream.Position := 0;
+    Tail := SubStrLen - 1;
+    SetLength(Buffer, BUFFER_SIZE + Tail);
+    SearchPos := 0;
+
+    // читаем первую порцию
+    ReadBytes := Stream.Read(Buffer[0], BUFFER_SIZE);
+
+    while ReadBytes > 0 do
+    begin
+      ValidBytes := ReadBytes + Tail;
+
+      // ищем только в реально доступных байтах
+      for I := 0 to ValidBytes - SubStrLen do
+      begin
+        Found := True;
+        for J := 0 to SubStrLen - 1 do
+          if Buffer[I + J] <> SubStrBytes[J] then
+          begin
+            Found := False;
+            Break;
+          end;
+        if Found then
+          Positions.Add(IntToStr(SearchPos + I));
+      end;
+
+      // переносим хвост
+      if Tail > 0 then
+        Move(Buffer[ReadBytes], Buffer[0], Tail);
+
+      // увеличиваем позицию
+      Inc(SearchPos, ReadBytes);
+
+      // читаем следующую порцию сразу за хвостом
+      ReadBytes := Stream.Read(Buffer[Tail], BUFFER_SIZE);
+    end;
+
+    if Positions.Count > 0 then
+      Result := Positions.CommaText
+    else
+      Result := '';
+  end;
+
 begin
   Result := nil;
   Positions := TStringList.Create;
   try
     try
-      // Проверка входных параметров
-      if (SubStrLen <= 0) or (SubStr = nil) or (FileName = nil) then
+      if (SubStr = nil) or (FileName = nil) then
       begin
         Result := StrAlloc(1);
         Result[0] := #0;
         Exit;
       end;
 
-      // Открываем файл
       Stream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
       try
-        SetLength(Buffer, BUFFER_SIZE + SubStrLen - 1);
-        SearchPos := 0;
-
-        // Первоначальное чтение
-        BytesRead := Stream.Read(Buffer[0], BUFFER_SIZE);
-        if BytesRead < SubStrLen then
-        begin
-          // Файл слишком маленький
-          Result := StrAlloc(10);
-          StrPCopy(Result, 'Not found');
-          Exit;
-        end;
-
-        while BytesRead >= SubStrLen do
-        begin
-          // Поиск в текущем буфере
-          for I := 0 to BytesRead - SubStrLen do
-          begin
-            Found := True;
-            for var J := 0 to SubStrLen - 1 do
-              if Buffer[I + J] <> SubStr[J] then
-              begin
-                Found := False;
-                Break;
-              end;
-
-            if Found then
-              Positions.Add(IntToStr(SearchPos + I));
-          end;
-
-          // Сохраняем конец буфера для перекрытия
-          if BytesRead >= SubStrLen - 1 then
-          begin
-            Move(Buffer[BytesRead - (SubStrLen - 1)], Buffer[0], SubStrLen - 1);
-            SearchPos := SearchPos + BytesRead - (SubStrLen - 1);
-          end;
-
-          // Читаем следующую порцию
-          BytesRead := Stream.Read(Buffer[SubStrLen - 1], BUFFER_SIZE);
-          if BytesRead > 0 then
-            BytesRead := BytesRead + (SubStrLen - 1);
-        end;
-
-        // Формируем результат
-        if Positions.Count > 0 then
-          ResultStr := Positions.CommaText
+        case Encoding of
+          0: ResultStr := SearchWithEncoding(TEncoding.ANSI);
+          1: ResultStr := SearchWithEncoding(TEncoding.UTF8);
+          2: begin
+               ResultStr := SearchWithEncoding(TEncoding.ANSI);
+               if ResultStr = '' then
+                 ResultStr := SearchWithEncoding(TEncoding.UTF8);
+             end;
         else
+          ResultStr := 'Error: Unknown encoding';
+        end;
+
+        if ResultStr = '' then
           ResultStr := 'Not found';
 
         Result := StrAlloc(Length(ResultStr) + 1);

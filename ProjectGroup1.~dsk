@@ -16,22 +16,22 @@ File_13=TSourceModule,'E:\WORK\МКО Системы\MKO\dll1.dll',0,1,1,1,1,0,0
 File_14=TSourceModule,'E:\WORK\IFC01\FormProgress.pas',0,1,1,1,1,0,0,,
 
 [Modules]
-Module0=E:\WORK\МКО Системы\MKO\FormMain.pas
-Module1=E:\WORK\МКО Системы\MKO\dll1.dproj
-Module2=E:\WORK\МКО Системы\MKO\dll2.dproj
+Module0=E:\WORK\МКО Системы\MKO\dll1.dproj
+Module1=E:\WORK\МКО Системы\MKO\dll2.dproj
+Module2=E:\WORK\МКО Системы\MKO\FormMain.pas
 Module3=E:\WORK\МКО Системы\MKO\FormFileView.pas
 Module4=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
 Count=5
 EditWindowCount=1
-
-[E:\WORK\МКО Системы\MKO\FormMain.pas]
-ModuleType=TSourceModule
 
 [E:\WORK\МКО Системы\MKO\dll1.dproj]
 ModuleType=TBaseProject
 
 [E:\WORK\МКО Системы\MKO\dll2.dproj]
 ModuleType=TBaseProject
+
+[E:\WORK\МКО Системы\MKO\FormMain.pas]
+ModuleType=TSourceModule
 
 [E:\WORK\МКО Системы\MKO\FormFileView.pas]
 ModuleType=TSourceModule
@@ -41,7 +41,7 @@ ModuleType=TSourceModule
 
 [EditWindow0]
 ViewCount=5
-CurrentEditView=E:\WORK\МКО Системы\MKO\FormMain.pas
+CurrentEditView=E:\WORK\МКО Системы\MKO\dll1.dpr
 View0=0
 View1=1
 View2=2
@@ -83,12 +83,12 @@ BottomMiddelPanelData=0000080001020200000009000000446F636B5369746530100000004772
 [View0]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=19
-CursorY=266
-TopLine=262
+CursorX=1
+CursorY=200
+TopLine=178
 LeftCol=1
 Elisions=
-Bookmarks={1,304,1}{2,175,24}{3,298,1}{5,227,1}
+Bookmarks={1,306,1}{2,176,24}{3,300,1}{5,229,1}
 EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 
 [View1]
@@ -96,11 +96,11 @@ CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\FormFileView.pas
 CursorX=125
 CursorY=41
-TopLine=36
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=E:\WORK\МКО Системы\MKO\FormFileView.pas
 
 [View2]
 CustomEditViewType=TEditView
@@ -117,8 +117,8 @@ EditViewName=Borland.FormDesignerView
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=1
-CursorY=1
-TopLine=1
+CursorY=175
+TopLine=162
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -127,9 +127,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 [View4]
 CustomEditViewType=TEditView
 Module=E:\WORK\МКО Системы\MKO\dll2.dpr
-CursorX=30
-CursorY=151
-TopLine=129
+CursorX=24
+CursorY=131
+TopLine=120
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -806,5 +806,5 @@ ActiveTabID=ToolForm
 TabDockClients=ToolForm,TemplateView
 
 [ActiveProject]
-ActiveProject=1
+ActiveProject=0
 

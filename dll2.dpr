@@ -127,7 +127,7 @@ end;
 // ------------------- API -------------------
 function GetInfo: PWideChar; stdcall;
 begin
-   Result:= 'ArchivingFiles,Архивирование файлов/папки';
+   Result:= 'RunProcess,Архивирование файлов/папки';
 end;
 
 function RunProcess(const CmdLine: PChar;

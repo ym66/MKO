@@ -13,7 +13,8 @@ type
 // Типы функций из DLL
   TStrFunction= function: PWideChar; stdcall;
   TFileSearchFunction= function(ADir, AMask: PWideChar): PWideChar; stdcall;
-  TSearchCharsFunction= function(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
+//  TSearchCharsFunction= function(FileName: PChar; SubStr: PByte; SubStrLen: Integer): PChar; stdcall;
+  TSearchCharsFunction= function(FileName: PChar; SubStr: PChar; Encoding: Integer): PChar; stdcall;
 
 // Типы коллбеков
 type
@@ -162,7 +163,7 @@ procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
 var
   PosStr: PChar;
   S: string;
-  SubStr: array of Byte; // подстрока для передачи в функцию Dll
+//  SubStr: array of Byte; // подстрока для передачи в функцию Dll
   L: TStringList;
   L0: TStringList;
   LAll: TStringList;
@@ -170,7 +171,7 @@ var
   i: integer;
   j: integer;
   C: char;
-  Sub: Ansistring; // подстрока
+  Sub: string; // подстрока
 begin
    Memo.Lines.Add('Задано: поиск подстроки');
    // Здесь храним подстроки
@@ -188,14 +189,16 @@ begin
      for j:= 0  to L0.Count - 1 do
      begin
        Sub:= L0[j];
-       SetLength(SubStr, Length(Sub));
+{       SetLength(SubStr, Length(Sub));
        for i:= 0 to Length(Sub) - 1 do
        begin
          SubStr[i]:= Ord(Sub[i + 1]);
        end;
+}
     //   SubStr[0]:= ord('M');
     //   SubStr[1]:= ord('Z');
-       PosStr:= SearchCharsFunction(PWideChar(FFileToSearchSubstring), @SubStr[0], 2);
+//       PosStr:= SearchCharsFunction(PWideChar(FFileToSearchSubstring), @SubStr[0], 2);
+       PosStr:= SearchCharsFunction(PChar(FFileToSearchSubstring), PChar(Sub), 2);
        if Assigned(PosStr) then
        begin
     //     ShowMessage(String(PosStr));
