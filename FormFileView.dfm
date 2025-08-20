@@ -20,7 +20,6 @@ object FileViewForm: TFileViewForm
     Height = 49
     Align = alBottom
     TabOrder = 0
-    ExplicitWidth = 624
     object btnOk: TButton
       Left = 160
       Top = 16
@@ -40,7 +39,6 @@ object FileViewForm: TFileViewForm
     Align = alClient
     BorderWidth = 5
     TabOrder = 1
-    ExplicitWidth = 624
     object lblCharsResult: TLabel
       Left = 6
       Top = 6
@@ -58,10 +56,7 @@ object FileViewForm: TFileViewForm
       Align = alClient
       ItemHeight = 15
       TabOrder = 0
-      ExplicitLeft = 208
-      ExplicitTop = 144
-      ExplicitWidth = 121
-      ExplicitHeight = 97
+      OnData = ListBoxData
     end
   end
 end

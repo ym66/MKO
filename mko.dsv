@@ -11,8 +11,8 @@ EditViewName=
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXGRsbDEuZHBy]
 Module=E:\WORK\МКО Системы\MKO\dll1.dpr
 CursorX=1
-CursorY=175
-TopLine=45
+CursorY=318
+TopLine=34
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -20,12 +20,12 @@ EditViewName=E:\WORK\МКО Системы\MKO\dll1.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1NYWluLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormMain.pas
-CursorX=63
-CursorY=231
-TopLine=212
+CursorX=7
+CursorY=537
+TopLine=503
 LeftCol=1
 Elisions=
-Bookmarks={1,305,1}{2,177,24}{3,299,1}{5,231,1}
+Bookmarks={1,529,36}{2,177,24}{3,268,1}
 EditViewName=E:\WORK\МКО Системы\MKO\FormMain.pas
 [ClosedView_YzpccHJvZ3JhbSBmaWxlcyAoeDg2KVxlbWJhcmNhZGVyb1xzdHVkaW9cMjMuMFxTT1VSQ0VcUlRM
 XFNZU1xTeXN0ZW0ucGFz]
@@ -90,9 +90,9 @@ EditViewName=c:\program files (x86)\embarcadero\studio\23.0\source\rtl\common\Sy
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1TZWFyY2hSZXN1bHQucGFz]
 Module=E:\WORK\МКО Системы\MKO\FormSearchResult.pas
-CursorX=26
-CursorY=25
-TopLine=1
+CursorX=22
+CursorY=46
+TopLine=43
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -330,9 +330,9 @@ EditViewName=
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1GaWxlVmlldy5wYXM=]
 Module=E:\WORK\МКО Системы\MKO\FormFileView.pas
-CursorX=1
-CursorY=26
-TopLine=1
+CursorX=22
+CursorY=48
+TopLine=45
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -620,8 +620,8 @@ EditViewName=E:\WORK\МКО Системы\MKO\FormRunProcess.pas
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXG1rby5kcHI=]
 Module=E:\WORK\МКО Системы\MKO\mko.dpr
-CursorX=40
-CursorY=18
+CursorX=1
+CursorY=12
 TopLine=1
 LeftCol=1
 Elisions=
@@ -630,9 +630,9 @@ EditViewName=E:\WORK\МКО Системы\MKO\mko.dpr
 
 [ClosedView_RTpcV09SS1zQnNCa0J4g0KHQuNGB0YLQtdC80YtcTUtPXEZvcm1Qcm9jZXNzLnBhcw==]
 Module=E:\WORK\МКО Системы\MKO\FormProcess.pas
-CursorX=30
-CursorY=85
-TopLine=47
+CursorX=1
+CursorY=24
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=

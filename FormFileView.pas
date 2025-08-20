@@ -15,10 +15,14 @@ type
     ListBox: TListBox;
     procedure FormResize(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
+    procedure ListBoxData(Control: TWinControl; Index: Integer;
+      var Data: string);
   private
+    FList: TStringList;
+    procedure SetList(const Value: TStringList);
     { Private declarations }
   public
-    { Public declarations }
+    property List: TStringList read FList write SetList;
   end;
 
 var
@@ -36,6 +40,17 @@ end;
 procedure TFileViewForm.FormResize(Sender: TObject);
 begin
   btnOk.Left := (Self.Width div 2) - (btnOk.Width div 2);
+end;
+
+procedure TFileViewForm.ListBoxData(Control: TWinControl; Index: Integer;
+  var Data: string);
+begin
+  Data:= List[Index];
+end;
+
+procedure TFileViewForm.SetList(const Value: TStringList);
+begin
+  FList := Value;
 end;
 
 end.

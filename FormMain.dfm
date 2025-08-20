@@ -124,7 +124,7 @@ object MainForm: TMainForm
           Top = 6
           Width = 642
           Height = 202
-          ActivePage = TabSheet3
+          ActivePage = TabSheet1
           Align = alClient
           TabOrder = 0
           object TabSheet1: TTabSheet

@@ -88,9 +88,10 @@ type
     procedure StringGridClick(Sender: TObject);
     procedure actSetFileExecute(Sender: TObject);
     procedure edSubstringKeyPress(Sender: TObject; var Key: Char);
-    procedure actSearchSubstringExecute(Sender: TObject);
+//    procedure actSearchSubstringExecute(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure actStartExecute(Sender: TObject);
+    procedure actSearchSubstringExecute(Sender: TObject);
   private
 //       Image: TImage;
     hLib1: HMODULE;
@@ -118,7 +119,6 @@ type
     procedure ShowNew(ANumber: integer);
     procedure SetMaskSearchDir(const Value: string);
     procedure SetFileToSearchSubstring(const Value: string);
-    function HexToBytes(const S: string): TBytes;
   protected
     procedure WMCopyData(var Msg: TWMCopyData); message WM_COPYDATA;
   public
@@ -160,11 +160,11 @@ begin
   Close;
 end;
 
+(*
 procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
 var
   PosStr: PChar;
   S: string;
-//  SubStr: array of Byte; // подстрока для передачи в функцию Dll
   L: TStringList;
   L0: TStringList;
   LAll: TStringList;
@@ -190,15 +190,6 @@ begin
      for j:= 0  to L0.Count - 1 do
      begin
        Sub:= L0[j];
-{       SetLength(SubStr, Length(Sub));
-       for i:= 0 to Length(Sub) - 1 do
-       begin
-         SubStr[i]:= Ord(Sub[i + 1]);
-       end;
-}
-    //   SubStr[0]:= ord('M');
-    //   SubStr[1]:= ord('Z');
-//       PosStr:= SearchCharsFunction(PWideChar(FFileToSearchSubstring), @SubStr[0], 2);
        PosStr:= SearchCharsFunction(PChar(FFileToSearchSubstring), PChar(Sub), 2);
        if Assigned(PosStr) then
        begin
@@ -230,6 +221,15 @@ begin
    FFV.Show;
    Memo.Lines.Add('Готово: поиск подстроки');
 end;
+*)
+
+
+procedure TMainForm.actSearchSubstringExecute(Sender: TObject);
+begin
+//   FileS(PWideChar(MaskSearchDir), PWideChar(edMask.Text));
+  SearchCharsFunction(PChar(FFileToSearchSubstring), PChar(edSubstring.Text), 2);
+  Memo.Lines.Add('Задано: Поиск подстрок ' + edSubstring.Text + ' в файле ' + FFileToSearchSubstring);
+end;
 
 procedure TMainForm.actSetFileExecute(Sender: TObject);
 begin
@@ -256,12 +256,6 @@ begin
   begin
      if edCommand.Text = '' then Exit;
 
-//    MemoProcess.Clear;
-    // запускаем 7z архиватор (или любую CLI-команду)
-(*    Task := RunProcess(PChar(edCommand.Text),{'cmd /c "7z a archive.7z *.txt"',}
-                       @OnOutput,
-                       @OnFinished,
-                       nil);*)
      FP:= TProcessForm.CreateWithProcess(edCommand.Text);
      FP.Show;
      Memo.Lines.Add('Задано: ' + edCommand.Text);
@@ -269,31 +263,6 @@ begin
   else;
 end;
 
-function TMainForm.HexToBytes(const S: string): TBytes;
-var
-  Parts: TStringList;
-  i: Integer;
-  B: Integer;
-begin
-  Parts := TStringList.Create;
-  try
-    Parts.Delimiter := ' ';
-    Parts.StrictDelimiter := True;
-    Parts.DelimitedText := Trim(S);
-
-    SetLength(Result, Parts.Count);
-    for i := 0 to Parts.Count - 1 do
-    begin
-      if not TryStrToInt('$' + Parts[i], B) then
-        raise Exception.CreateFmt('"%s" не является hex-байтом', [Parts[i]]);
-      if (B < 0) or (B > 255) then
-        raise Exception.CreateFmt('"%s" вне диапазона байта', [Parts[i]]);
-      Result[i] := Byte(B);
-    end;
-  finally
-    Parts.Free;
-  end;
-end;
 
 
 procedure TMainForm.actMaskSearchExecute(Sender: TObject);
@@ -516,25 +485,57 @@ var
   ReceivedStr: string;
   L: TStringList;
   F: TSearchResultForm;
+  TypeMsg: integer;
+  FFV: TFileViewForm;
 begin
   if Msg.CopyDataStruct <> nil then
   begin
-    ReceivedStr := PWideChar(Msg.CopyDataStruct.lpData);
-    L:= TStringList.Create;
-    L.Delimiter:= ',';
-    L.StrictDelimiter:= true;
-    L.DelimitedText:= ReceivedStr;
-    F:= TSearchResultForm.Create(Self);
-    try
-      F.ListBox.ScrollWidth:= 800;
-      F.ListBox.Style:= lbVirtual;
-      F.List:= L;
-      F.ListBox.Count:= L.Count;
-      //ShowNew(1);
-      F.Caption:= 'Результат поиска файлов по маске ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
-      F.Show;
-      Memo.Lines.Add('Готово: поиск файлов по маске ' + edMask.Text);
-    finally
+    TypeMsg:= Msg.CopyDataStruct.dwData;
+    if TypeMsg = 0 then
+    begin
+      ReceivedStr := PWideChar(Msg.CopyDataStruct.lpData);
+      L:= TStringList.Create;
+      L.Delimiter:= ',';
+      L.StrictDelimiter:= true;
+      L.DelimitedText:= ReceivedStr;
+      F:= TSearchResultForm.Create(Self);
+      try
+        F.ListBox.ScrollWidth:= 800;
+        F.ListBox.Style:= lbVirtual;
+        F.List:= L;
+        F.ListBox.Count:= L.Count;
+        F.Caption:= 'Результат поиска файлов по маске ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
+        F.Show;
+        Memo.Lines.Add('Готово: поиск файлов по маске ' + edMask.Text);
+      finally
+      end;
+    end;
+
+    if TypeMsg = 1 then
+    begin
+      ReceivedStr := PWideChar(Msg.CopyDataStruct.lpData);
+      L:= TStringList.Create;
+      L.Delimiter:= ',';
+      L.StrictDelimiter:= true;
+      L.DelimitedText:= ReceivedStr;
+
+      FFV:= TFileViewForm.Create(Self);
+      try
+        FFV.ListBox.ScrollWidth:= 800;
+        FFV.ListBox.Style:= lbVirtual;
+        FFV.ListBox.Items.Text:= ReceivedStr;
+        FFV.List:= L;
+        FFV.ListBox.Count:= L.Count;
+        FFV.Caption:= 'Результат поиска файлов по маске ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
+        FFV.lblCharsResult.Caption:= 'Позиции подстрок ' + QuotedStr(edSubstring.Text) + ' в файле ' + FFileToSearchSubstring;
+
+        FFV.Show;
+        Memo.Lines.Add('Готово: поиск подстроки');
+
+
+      finally
+      end;
+
     end;
 
   end;
