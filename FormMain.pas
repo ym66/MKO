@@ -331,6 +331,8 @@ begin
     FreeProcessTask(Task);
   if hLib1 <> 0 then
     FreeLibrary(hLib1);
+  if hLib2 <> 0 then
+    FreeLibrary(hLib2);
 end;
 
 procedure TMainForm.FormResize(Sender: TObject);
@@ -526,7 +528,7 @@ begin
         FFV.ListBox.Items.Text:= ReceivedStr;
         FFV.List:= L;
         FFV.ListBox.Count:= L.Count;
-        FFV.Caption:= 'Результат поиска файлов по маске ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
+        FFV.Caption:= 'Результат поиска подстрок ' + QuotedStr(edMask.Text) + ' в ' + lblSelected.Caption;
         FFV.lblCharsResult.Caption:= 'Позиции подстрок ' + QuotedStr(edSubstring.Text) + ' в файле ' + FFileToSearchSubstring;
 
         FFV.Show;
